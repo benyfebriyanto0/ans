@@ -1,0 +1,6 @@
+src/generated
+.next
+node_modules
+tests/report
+test-results
+docs

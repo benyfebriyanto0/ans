@@ -1,0 +1,195 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Font self-hosted (Plus Jakarta Sans variable, subset latin) + fallback metrik untuk menekan CLS */
+@font-face {
+  font-family: "Plus Jakarta Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("/fonts/plus-jakarta-sans-latin-wght.woff2") format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Jakarta Fallback";
+  src: local("Arial");
+  size-adjust: 104%;
+  ascent-override: 98%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
+
+/* ===== Design tokens — identitas visual Arsindo (navy industri + aksen amber) ===== */
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.99 0.003 250);
+  --foreground: oklch(0.22 0.04 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 255);
+  --primary: oklch(0.32 0.09 255); /* navy #12305c */
+  --primary-foreground: oklch(0.98 0.005 250);
+  --secondary: oklch(0.96 0.01 250);
+  --secondary-foreground: oklch(0.28 0.06 255);
+  --muted: oklch(0.965 0.006 250);
+  --muted-foreground: oklch(0.5 0.03 255);
+  --accent: oklch(0.79 0.16 70); /* amber */
+  --accent-foreground: oklch(0.25 0.05 60);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.91 0.01 250);
+  --input: oklch(0.89 0.012 250);
+  --ring: oklch(0.55 0.12 255);
+  --navy-950: oklch(0.17 0.05 258);
+  --navy-900: oklch(0.22 0.07 258);
+  --success: oklch(0.62 0.15 150);
+}
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans Variable", "Jakarta Fallback", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-success: var(--success);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ken-burns: ken-burns 12s ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ken-burns {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tipografi konten rich text */
+.prose-content p {
+  @apply mb-4 leading-relaxed text-muted-foreground;
+}
+.prose-content strong {
+  @apply font-semibold text-foreground;
+}
+.prose-content h2 {
+  @apply mt-8 mb-3 text-2xl font-bold text-foreground;
+}
+.prose-content h3 {
+  @apply mt-6 mb-2 text-xl font-semibold text-foreground;
+}
+.prose-content ul {
+  @apply mb-4 list-disc space-y-1 pl-6 text-muted-foreground;
+}
+.prose-content ol {
+  @apply mb-4 list-decimal space-y-1 pl-6 text-muted-foreground;
+}
+.prose-content a {
+  @apply font-medium text-primary underline underline-offset-4;
+}
+.prose-content blockquote {
+  @apply my-4 border-l-4 border-accent pl-4 italic;
+}
+
+/* Pola latar dekoratif */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, white 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, white 7%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.bg-dots {
+  background-image: radial-gradient(color-mix(in oklch, var(--primary) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Editor Tiptap */
+.tiptap {
+  @apply min-h-48 px-4 py-3 outline-none;
+}
+.tiptap p {
+  @apply mb-3;
+}
+.tiptap ul {
+  @apply mb-3 list-disc pl-6;
+}
+.tiptap ol {
+  @apply mb-3 list-decimal pl-6;
+}
+.tiptap h2 {
+  @apply mb-2 text-xl font-bold;
+}
+.tiptap h3 {
+  @apply mb-2 text-lg font-semibold;
+}
+.tiptap blockquote {
+  @apply border-l-4 border-accent pl-3 italic;
+}
+
+/* Cahaya dekoratif — radial-gradient (jauh lebih ringan daripada filter blur besar) */
+.glow-accent {
+  background: radial-gradient(closest-side, color-mix(in oklch, var(--accent) 32%, transparent), transparent);
+}
+.glow-primary {
+  background: radial-gradient(closest-side, color-mix(in oklch, var(--primary) 85%, transparent), transparent);
+}

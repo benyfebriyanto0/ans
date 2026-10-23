@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dokumentasi Teknis — Website CV Arsindo Niaga Sejahtera</title><meta name="description" content="Arsitektur, modul, database, konfigurasi, API, deployment, dan pemeliharaan."><style>:root{--bg:#f7f8fb;--card:#fff;--fg:#14213d;--muted:#5b6478;--line:#e3e7ef;--pri:#12305c;--acc:#f5a524;--ok:#16a34a;--bad:#dc2626;--code:#f1f4f9;font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1324;--card:#111b31;--fg:#e8ecf5;--muted:#9aa5bd;--line:#22304d;--pri:#8fb0ff;--code:#16223d}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);line-height:1.65;font-size:15px}
+a{color:var(--pri)}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em}
+code{background:var(--code);padding:.1em .35em;border-radius:5px}pre{background:var(--code);padding:14px 16px;border-radius:10px;overflow:auto;border:1px solid var(--line)}pre code{background:none;padding:0}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;margin:0 auto}
+nav.toc{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 18px;border-right:1px solid var(--line)}
+nav.toc .brand{display:flex;gap:10px;align-items:center;font-weight:800;margin-bottom:18px}nav.toc .brand span{font-size:12px;color:var(--muted);font-weight:500;display:block}
+nav.toc ol{list-style:none;padding:0;margin:0;counter-reset:t}nav.toc li a{display:block;padding:5px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:13.5px}nav.toc li a:hover{background:var(--code);color:var(--fg)}
+main{padding:36px 44px 80px;min-width:0}header.hero{background:linear-gradient(135deg,#12305c,#0b1a33);color:#fff;border-radius:18px;padding:34px 34px;margin-bottom:28px;position:relative;overflow:hidden}
+header.hero h1{margin:.2em 0 .3em;font-size:30px;line-height:1.2}header.hero p{margin:0;color:#c9d4ea;max-width:780px}.eyebrow{color:var(--acc);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px 12px;font-size:12.5px;color:#e6ecf7}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin:0 0 20px}
+h2{font-size:21px;margin:0 0 12px;scroll-margin-top:20px}h2 small{color:var(--muted);font-weight:500;font-size:13px;margin-left:6px}h3{font-size:16px;margin:22px 0 8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0 6px;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--code);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}.card h4{margin:0 0 6px;font-size:14px}.card p{margin:0;color:var(--muted);font-size:13.5px}
+.note{border-left:4px solid var(--acc);background:color-mix(in srgb,var(--acc) 10%,transparent);padding:10px 14px;border-radius:8px;margin:12px 0}.warn{border-left-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.ok{color:var(--ok);font-weight:700}.bad{color:var(--bad);font-weight:700}.tag{display:inline-block;font-size:11.5px;border-radius:6px;padding:1px 7px;background:var(--code);border:1px solid var(--line);margin:1px}
+ol.steps{padding-left:20px}ol.steps li{margin:6px 0}.diagram{width:100%;height:auto;margin:10px 0;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.score{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;font-weight:800;border:3px solid var(--ok);color:var(--ok)}
+.shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.shots figure{margin:0}.shots img{width:100%;border-radius:10px;border:1px solid var(--line)}.shots figcaption{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:900px){.layout{grid-template-columns:1fr}nav.toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}main{padding:20px 16px 60px}.grid2,.grid3,.shots{grid-template-columns:1fr}section{padding:18px}}
+@media print{nav.toc{display:none}.layout{display:block}section{break-inside:avoid}}
+</style></head>
+<body><div class="layout">
+<nav class="toc" aria-label="Daftar isi">
+  <div class="brand"><svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 2 43 13v22L24 46 5 35V13z" fill="#12305c"/><path d="M24 2 43 13v22L24 46 5 35V13z" fill="none" stroke="#f5a524" stroke-width="2.5"/><path d="M15.5 33 24 13l8.5 20h-4.6l-1.7-4.3h-4.4L20.1 33z" fill="#f5a524"/></svg><div>Arsindo Niaga<span>Dokumentasi Teknis v1.0</span></div></div>
+  <ol>
+    <li><a href="#ringkasan">1. Ringkasan</a></li>
+    <li><a href="#arsitektur">2. Arsitektur aplikasi</a></li>
+    <li><a href="#stack">3. Teknologi &amp; versi</a></li>
+    <li><a href="#modul">4. Struktur modul</a></li>
+    <li><a href="#rute">5. Halaman &amp; rute</a></li>
+    <li><a href="#database">6. Skema database</a></li>
+    <li><a href="#env">7. Environment variables</a></li>
+    <li><a href="#actions">8. Server Actions &amp; API</a></li>
+    <li><a href="#keamanan">9. Keamanan</a></li>
+    <li><a href="#media">10. Upload &amp; Cloudinary</a></li>
+    <li><a href="#seo">11. SEO, performa, aksesibilitas</a></li>
+    <li><a href="#lokal">12. Instalasi lokal</a></li>
+    <li><a href="#deploy">13. Prosedur deployment</a></li>
+    <li><a href="#pemeliharaan">14. Pemeliharaan</a></li>
+    <li><a href="#operasional">15. Panduan operasional admin</a></li>
+    <li><a href="#catatan">16. Catatan &amp; keputusan teknis</a></li>
+  </ol>
+</nav>
+<main>
+<header class="hero">
+  <div class="eyebrow">Technical Documentation</div>
+  <h1>Website Company Profile CV Arsindo Niaga Sejahtera</h1>
+  <p>Dokumen ini menjelaskan arsitektur, struktur kode, skema database, konfigurasi, prosedur deployment, dan panduan pemeliharaan aplikasi. Ditujukan untuk developer, tim IT, dan pengelola website.</p>
+  <div class="meta"><span class="pill">Versi 1.0</span><span class="pill">22 Oktober 2026</span><span class="pill">Next.js 16 · Prisma 7 · MySQL</span><span class="pill">Netlify · Cloudinary</span></div>
+</header>
+
+<section id="ringkasan">
+  <h2>1. Ringkasan</h2>
+  <p>Aplikasi terdiri dari <strong>situs publik</strong> (Bahasa Indonesia) dan <strong>panel admin</strong> di <code>/admin</code> dalam satu project Next.js. Seluruh konten — profil perusahaan, 4 bidang usaha, galeri foto, slider beranda, armada rental, dan akun admin — dikelola dari panel admin dan disimpan di database MySQL-compatible; file foto disimpan di Cloudinary.</p>
+  <div class="grid3">
+    <div class="card"><h4>Situs publik</h4><p>Beranda, Tentang Kami, Bidang Usaha, Detail Bidang Usaha + galeri lightbox, Armada (daftar &amp; detail), Kontak + formulir.</p></div>
+    <div class="card"><h4>Panel admin</h4><p>Dashboard, Bidang Usaha, Galeri Foto, Slider Beranda, Armada Rental, Profil Perusahaan, Pesan Masuk, Pengguna Admin.</p></div>
+    <div class="card"><h4>Rendering</h4><p>Halaman publik di-prerender statis (ISR, revalidate 1 jam) dan di-revalidate on-demand setiap kali admin menyimpan perubahan.</p></div>
+  </div>
+  <h3>Bidang usaha</h3>
+  <table><thead><tr><th>No</th><th>Nama menu</th><th>Nama resmi</th><th>KBLI</th><th>Slug</th></tr></thead><tbody>
+    <tr><td>1</td><td>Perdagangan</td><td>Perdagangan Suku Cadang Mesin dan Peralatan Industri</td><td>46693</td><td><code>perdagangan</code></td></tr>
+    <tr><td>2</td><td>Jasa</td><td>Reparasi Mesin dan Peralatan</td><td>33120</td><td><code>jasa</code></td></tr>
+    <tr><td>3</td><td>Perdagangan Oli</td><td>Perdagangan Bahan Bakar dan Pelumas</td><td>46610</td><td><code>perdagangan-oli</code></td></tr>
+    <tr><td>4</td><td>Rental Mobil</td><td>Penyewaan Kendaraan</td><td>77100</td><td><code>rental-mobil</code></td></tr>
+  </tbody></table>
+</section>
+
+<section id="arsitektur">
+  <h2>2. Arsitektur aplikasi</h2>
+  <svg class="diagram" viewBox="0 0 980 360" role="img" aria-label="Diagram arsitektur">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#64748b"/></marker></defs>
+    <style>.b{fill:#fff;stroke:#c7d0e0;stroke-width:1.5}.h{font:700 14px sans-serif;fill:#12305c}.t{font:12px sans-serif;fill:#475569}.l{stroke:#64748b;stroke-width:1.6;fill:none;marker-end:url(#ar)}.lt{font:11px sans-serif;fill:#64748b}.nf{fill:#eef4ff;stroke:#12305c;stroke-width:1.5}.ac{fill:#fff7e6;stroke:#f5a524;stroke-width:1.5}</style>
+    <rect class="b" x="20" y="40" width="170" height="80" rx="12"/><text class="h" x="40" y="70">Pengunjung</text><text class="t" x="40" y="92">Browser / HP</text><text class="t" x="40" y="108">WhatsApp (wa.me)</text>
+    <rect class="b" x="20" y="220" width="170" height="80" rx="12"/><text class="h" x="40" y="250">Admin</text><text class="t" x="40" y="272">Browser → /admin</text>
+    <rect class="nf" x="260" y="20" width="420" height="320" rx="16"/><text class="h" x="280" y="48">Netlify — Next.js 16 (App Router)</text>
+    <rect class="b" x="280" y="64" width="180" height="78" rx="10"/><text class="h" x="295" y="88">CDN / ISR cache</text><text class="t" x="295" y="108">HTML statis halaman publik</text><text class="t" x="295" y="124">aset /_next/static</text>
+    <rect class="b" x="480" y="64" width="180" height="78" rx="10"/><text class="h" x="495" y="88">proxy.ts</text><text class="t" x="495" y="108">kunci /admin &amp; /api/admin</text><text class="t" x="495" y="124">Auth.js (JWT cookie)</text>
+    <rect class="b" x="280" y="160" width="380" height="76" rx="10"/><text class="h" x="295" y="184">Server Components &amp; Server Actions</text><text class="t" x="295" y="204">Zod validation · requireAdmin() · rate limit · sanitize-html</text><text class="t" x="295" y="220">revalidatePath("/", "layout") setelah admin menyimpan</text>
+    <rect class="b" x="280" y="252" width="380" height="70" rx="10"/><text class="h" x="295" y="276">Prisma Client 7 + adapter MariaDB</text><text class="t" x="295" y="296">pool koneksi (TLS ke TiDB)</text>
+    <rect class="ac" x="760" y="40" width="200" height="110" rx="12"/><text class="h" x="776" y="68">Cloudinary</text><text class="t" x="776" y="90">Penyimpanan foto</text><text class="t" x="776" y="106">Transformasi f_auto/q_auto</text><text class="t" x="776" y="122">resize via URL</text>
+    <rect class="ac" x="760" y="220" width="200" height="110" rx="12"/><text class="h" x="776" y="248">TiDB Cloud / MySQL 8</text><text class="t" x="776" y="270">9 tabel (Prisma migrate)</text><text class="t" x="776" y="286">backup mingguan</text><text class="t" x="776" y="302">(GitHub Actions)</text>
+    <path class="l" d="M190 80 H275"/><text class="lt" x="200" y="72">HTTPS</text>
+    <path class="l" d="M190 260 C 230 260 240 110 475 105"/>
+    <path class="l" d="M660 287 H755"/><text class="lt" x="680" y="280">SQL/TLS</text>
+    <path class="l" d="M105 220 C 105 180 700 180 755 100"/><text class="lt" x="560" y="160">signed upload langsung dari browser</text>
+    <path class="l" d="M660 200 C 710 200 720 140 755 130"/><text class="lt" x="676" y="196">API: verifikasi/hapus</text>
+  </svg>
+  <h3>Strategi rendering &amp; revalidation</h3>
+  <ul>
+    <li><strong>Halaman publik</strong> (<code>src/app/(site)</code>) di-prerender saat build. Setiap halaman mengekspor <code>revalidate = 3600</code> sebagai pengaman, dan halaman detail memakai <code>generateStaticParams</code> + <code>dynamicParams = true</code> sehingga bidang usaha/armada baru otomatis dibuat on-demand.</li>
+    <li><strong>On-demand revalidation:</strong> setiap Server Action admin yang mengubah konten memanggil <code>revalidatePublic()</code> → <code>revalidatePath("/", "layout")</code>. Kunjungan berikutnya menampilkan konten terbaru (diuji otomatis — lihat laporan pengujian).</li>
+    <li><strong>Panel admin</strong> dirender dinamis per request (membaca sesi/cookie).</li>
+    <li>Model caching yang dipakai adalah model klasik (tanpa <code>cacheComponents</code>) agar kompatibel penuh dengan runtime Netlify.</li>
+  </ul>
+</section>
+
+<section id="stack">
+  <h2>3. Teknologi &amp; versi</h2>
+  <table><thead><tr><th>Bagian</th><th>Paket</th><th>Versi</th><th>Catatan</th></tr></thead><tbody>
+    <tr><td>Framework</td><td>next, react</td><td>16.4.2 · 19.3</td><td>App Router, Server Actions, <code>proxy.ts</code> (pengganti middleware)</td></tr>
+    <tr><td>Bahasa</td><td>typescript</td><td>5.9</td><td>strict mode</td></tr>
+    <tr><td>Styling</td><td>tailwindcss</td><td>4.x</td><td>design tokens di <code>globals.css</code> (navy + amber)</td></tr>
+    <tr><td>Komponen UI</td><td>radix-ui, class-variance-authority, lucide-react, sonner</td><td>—</td><td>komponen bergaya shadcn/ui di <code>src/components/ui</code></td></tr>
+    <tr><td>ORM</td><td>prisma, @prisma/client, @prisma/adapter-mariadb</td><td>7.10.1</td><td>Prisma 7 (tanpa Rust query engine), konfigurasi di <code>prisma.config.ts</code></td></tr>
+    <tr><td>Auth</td><td>next-auth (Auth.js)</td><td>5.0.0-beta.32</td><td>Credentials + JWT session 8 jam</td></tr>
+    <tr><td>Hash password</td><td>bcryptjs</td><td>3.x</td><td>implementasi bcrypt murni JS, cost 12</td></tr>
+    <tr><td>Validasi &amp; form</td><td>zod, react-hook-form, @hookform/resolvers</td><td>4.x · 7.x · 5.x</td><td>skema yang sama dipakai di browser &amp; server</td></tr>
+    <tr><td>Media</td><td>cloudinary</td><td>2.x</td><td>signed upload, verifikasi aset, hapus file</td></tr>
+    <tr><td>Galeri</td><td>yet-another-react-lightbox</td><td>3.x</td><td>lightbox + caption + zoom + counter</td></tr>
+    <tr><td>Drag &amp; drop</td><td>@dnd-kit/core, sortable</td><td>6.x · 10.x</td><td>mendukung mouse, sentuh, dan keyboard</td></tr>
+    <tr><td>Rich text</td><td>@tiptap/react + starter-kit, sanitize-html</td><td>3.x</td><td>HTML disanitasi di server sebelum disimpan</td></tr>
+    <tr><td>Slider</td><td>embla-carousel</td><td>8.x</td><td>autoplay, swipe</td></tr>
+    <tr><td>Font</td><td>Plus Jakarta Sans (self-hosted)</td><td>—</td><td><code>public/fonts</code>, preload + fallback metrics</td></tr>
+    <tr><td>Pengujian</td><td>@playwright/test, lighthouse</td><td>1.64</td><td><code>tests/e2e</code></td></tr>
+  </tbody></table>
+</section>
+
+<section id="modul">
+  <h2>4. Struktur modul</h2>
+<pre><code>arsindo-niaga-sejahtera/
+├─ prisma/
+│  ├─ schema.prisma            # 9 model (6 tabel PRD + armada + foto armada + rate limit)
+│  ├─ migrations/              # migration SQL (prisma migrate deploy)
+│  ├─ seed.ts · seed-data.ts   # admin awal, 4 bidang usaha, profil perusahaan, contoh armada
+├─ prisma.config.ts            # konfigurasi Prisma 7 (schema, migrations, seed, DATABASE_URL)
+├─ src/
+│  ├─ app/
+│  │  ├─ layout.tsx            # root layout, metadata dasar, preload font
+│  │  ├─ (site)/               # SITUS PUBLIK — layout dengan header, footer, tombol WA melayang
+│  │  │  ├─ page.tsx           # Beranda
+│  │  │  ├─ tentang/           # Tentang Kami
+│  │  │  ├─ bidang-usaha/      # daftar + [slug] detail &amp; galeri
+│  │  │  ├─ armada/            # daftar + [slug] detail armada rental
+│  │  │  └─ kontak/            # kontak, peta, formulir
+│  │  ├─ admin/
+│  │  │  ├─ (auth)/login/      # halaman login
+│  │  │  └─ (panel)/           # layout admin (sidebar) + seluruh menu pengelolaan
+│  │  ├─ api/auth/[...nextauth]/        # handler Auth.js
+│  │  ├─ api/admin/cloudinary/sign/     # signature signed upload
+│  │  ├─ sitemap.ts · robots.ts · opengraph-image.tsx · icon.svg · not-found.tsx
+│  ├─ auth.ts                  # konfigurasi Auth.js (Credentials, rate limit login)
+│  ├─ proxy.ts                 # proteksi /admin dan /api/admin
+│  ├─ server/
+│  │  ├─ action-utils.ts       # konversi error Zod/Prisma → ActionResult
+│  │  └─ actions/              # Server Actions per domain (lihat bagian 8)
+│  ├─ lib/
+│  │  ├─ db.ts · prisma-factory.ts      # Prisma Client singleton + adapter + TLS
+│  │  ├─ settings.ts · queries.ts       # akses data publik (React cache)
+│  │  ├─ validations.ts                 # skema Zod (shared client/server)
+│  │  ├─ cloudinary.ts · cloudinary-url.ts · upload-client.ts
+│  │  ├─ rate-limit.ts · request.ts · sanitize.ts · revalidate.ts · auth-guard.ts · utils.ts
+│  ├─ components/
+│  │  ├─ ui/                   # primitive bergaya shadcn (button, input, dialog, switch, table, …)
+│  │  ├─ site/                 # header, footer, hero, kartu, galeri, form kontak, peta, reveal
+│  │  └─ admin/                # nav, PhotoManager, SortableRows, form-form admin, dialog konfirmasi
+│  └─ generated/prisma/        # hasil `prisma generate` (tidak di-commit)
+├─ tests/e2e/                  # Playwright (publik, keamanan, kontak, admin)
+├─ docs/                       # dokumentasi ini + laporan pengujian + bukti Lighthouse/screenshot
+├─ netlify.toml · .github/workflows/ (ci.yml, backup-db.yml) · .env.example</code></pre>
+</section>
+
+<section id="rute">
+  <h2>5. Halaman &amp; rute</h2>
+  <h3>Publik</h3>
+  <table><thead><tr><th>URL</th><th>Isi</th><th>Rendering</th></tr></thead><tbody>
+    <tr><td><code>/</code></td><td>Hero slider (atau hero default bila slider kosong), keunggulan, ringkasan perusahaan + visi, 4 kartu bidang usaha, nilai perusahaan, preview armada (bila ada), CTA WhatsApp/telepon</td><td>ISR</td></tr>
+    <tr><td><code>/tentang</code></td><td>Profil, legalitas (nama, bentuk usaha, NIB, NPWP, alamat), visi, misi, nilai, komitmen</td><td>ISR</td></tr>
+    <tr><td><code>/bidang-usaha</code></td><td>Kartu 4 bidang usaha</td><td>ISR</td></tr>
+    <tr><td><code>/bidang-usaha/[slug]</code></td><td>Judul, KBLI, deskripsi rich text, daftar layanan, galeri grid 3/2/1 kolom + lightbox, tombol WhatsApp dengan pesan otomatis per bidang</td><td>SSG + ISR</td></tr>
+    <tr><td><code>/armada</code>, <code>/armada/[slug]</code></td><td>Daftar &amp; detail armada rental (jenis, kapasitas, transmisi, BBM, fasilitas, foto) — terpisah dari galeri dokumentasi</td><td>SSG + ISR</td></tr>
+    <tr><td><code>/kontak</code></td><td>Alamat, telepon, WhatsApp, email, jam operasional, Google Maps (dimuat saat terlihat), formulir kontak</td><td>ISR</td></tr>
+    <tr><td><code>/sitemap.xml</code>, <code>/robots.txt</code>, <code>/opengraph-image</code></td><td>SEO</td><td>ISR/statis</td></tr>
+  </tbody></table>
+  <p>Elemen global: header sticky dengan dropdown bidang usaha &amp; menu mobile, footer (alamat, kontak, link bidang usaha, copyright), tombol WhatsApp melayang, JSON-LD <code>LocalBusiness</code>.</p>
+  <h3>Admin (wajib login)</h3>
+  <table><thead><tr><th>URL</th><th>Fungsi</th></tr></thead><tbody>
+    <tr><td><code>/admin/login</code></td><td>Login email + password</td></tr>
+    <tr><td><code>/admin</code></td><td>Dashboard: pesan belum dibaca, jumlah foto per bidang usaha, slider &amp; armada aktif, pesan terbaru</td></tr>
+    <tr><td><code>/admin/bidang-usaha</code> (+ <code>/baru</code>, <code>/[id]</code>)</td><td>Tambah/ubah/hapus, urutkan (drag-and-drop), aktif/nonaktif; field nama menu, nama resmi, KBLI, slug, ringkasan, deskripsi rich text, layanan, pesan WA, ikon, sampul, urutan, status</td></tr>
+    <tr><td><code>/admin/galeri?unit=ID</code></td><td>Multi-upload (maks 20), drag-and-drop urutan, caption, aktif/nonaktif, hapus satuan/massal</td></tr>
+    <tr><td><code>/admin/slider</code></td><td>CRUD banner beranda: gambar, judul, subjudul, teks &amp; link tombol, urutan, status</td></tr>
+    <tr><td><code>/admin/armada</code> (+ <code>/baru</code>, <code>/[id]</code>)</td><td>CRUD armada + pengelolaan foto per unit</td></tr>
+    <tr><td><code>/admin/profil</code></td><td>Profil, visi, misi, nilai, komitmen, legalitas, kontak, WhatsApp, Google Maps, logo</td></tr>
+    <tr><td><code>/admin/pesan</code></td><td>Baca pesan formulir, tandai dibaca/belum, hapus, balas via email/WA</td></tr>
+    <tr><td><code>/admin/pengguna</code></td><td>Tambah/hapus admin, reset password admin lain, ganti password sendiri</td></tr>
+  </tbody></table>
+</section>
+
+<section id="database">
+  <h2>6. Skema database <small>MySQL 8 / TiDB · utf8mb4</small></h2>
+  <svg class="diagram" viewBox="0 0 980 300" role="img" aria-label="ERD">
+    <style>.e{fill:#fff;stroke:#12305c;stroke-width:1.5}.eh{fill:#12305c}.et{font:700 13px sans-serif;fill:#fff}.ec{font:11.5px monospace;fill:#334155}.r{stroke:#f5a524;stroke-width:2;fill:none}.rl{font:11px sans-serif;fill:#b45309}</style>
+    <g><rect class="e" x="20" y="20" width="210" height="150" rx="8"/><rect class="eh" x="20" y="20" width="210" height="26" rx="8"/><text class="et" x="32" y="38">business_units</text><text class="ec" x="32" y="64">id PK</text><text class="ec" x="32" y="80">menu_name, official_name</text><text class="ec" x="32" y="96">kbli_code, slug UNIQUE</text><text class="ec" x="32" y="112">summary, description, services</text><text class="ec" x="32" y="128">icon, wa_message, cover_*</text><text class="ec" x="32" y="144">sort_order, is_active</text><text class="ec" x="32" y="160">created_at, updated_at</text></g>
+    <g><rect class="e" x="300" y="20" width="220" height="130" rx="8"/><rect class="eh" x="300" y="20" width="220" height="26" rx="8"/><text class="et" x="312" y="38">gallery_photos</text><text class="ec" x="312" y="64">id PK</text><text class="ec" x="312" y="80">business_unit_id FK (CASCADE)</text><text class="ec" x="312" y="96">image_public_id, image_url</text><text class="ec" x="312" y="112">width, height, caption</text><text class="ec" x="312" y="128">sort_order, is_active, timestamps</text></g>
+    <g><rect class="e" x="300" y="170" width="220" height="115" rx="8"/><rect class="eh" x="300" y="170" width="220" height="26" rx="8"/><text class="et" x="312" y="188">contact_messages</text><text class="ec" x="312" y="214">id PK, name, email, phone</text><text class="ec" x="312" y="230">business_unit_id FK (SET NULL)</text><text class="ec" x="312" y="246">message, is_read, ip_hash</text><text class="ec" x="312" y="262">timestamps</text></g>
+    <g><rect class="e" x="590" y="20" width="180" height="130" rx="8"/><rect class="eh" x="590" y="20" width="180" height="26" rx="8"/><text class="et" x="602" y="38">vehicles</text><text class="ec" x="602" y="64">id PK, name, slug UNIQUE</text><text class="ec" x="602" y="80">brand, category, seats</text><text class="ec" x="602" y="96">transmission, fuel, year</text><text class="ec" x="602" y="112">description, features</text><text class="ec" x="602" y="128">cover_*, sort, active</text></g>
+    <g><rect class="e" x="590" y="170" width="180" height="100" rx="8"/><rect class="eh" x="590" y="170" width="180" height="26" rx="8"/><text class="et" x="602" y="188">vehicle_photos</text><text class="ec" x="602" y="214">id PK</text><text class="ec" x="602" y="230">vehicle_id FK (CASCADE)</text><text class="ec" x="602" y="246">image_*, caption</text><text class="ec" x="602" y="262">sort_order, is_active</text></g>
+    <g><rect class="e" x="810" y="20" width="155" height="70" rx="8"/><rect class="eh" x="810" y="20" width="155" height="26" rx="8"/><text class="et" x="822" y="38">users</text><text class="ec" x="822" y="64">email UNIQUE</text><text class="ec" x="822" y="80">password_hash</text></g>
+    <g><rect class="e" x="810" y="100" width="155" height="56" rx="8"/><rect class="eh" x="810" y="100" width="155" height="26" rx="8"/><text class="et" x="822" y="118">sliders</text><text class="ec" x="822" y="144">image_*, title…</text></g>
+    <g><rect class="e" x="810" y="166" width="155" height="56" rx="8"/><rect class="eh" x="810" y="166" width="155" height="26" rx="8"/><text class="et" x="822" y="184">settings</text><text class="ec" x="822" y="210">key UNIQUE, value</text></g>
+    <g><rect class="e" x="810" y="232" width="155" height="56" rx="8"/><rect class="eh" x="810" y="232" width="155" height="26" rx="8"/><text class="et" x="822" y="250">rate_limits</text><text class="ec" x="822" y="276">key PK, count…</text></g>
+    <path class="r" d="M230 80 H300"/><text class="rl" x="245" y="74">1 — N</text>
+    <path class="r" d="M230 140 C 265 140 265 210 300 210"/><text class="rl" x="236" y="190">1 — N</text>
+    <path class="r" d="M680 150 V170"/><text class="rl" x="688" y="164">1 — N</text>
+  </svg>
+  <table><thead><tr><th>Tabel</th><th>Kolom utama</th><th>Keterangan</th></tr></thead><tbody>
+    <tr><td><code>users</code></td><td>id, name, email (unique), password_hash, timestamps</td><td>Akun admin (bcrypt cost 12)</td></tr>
+    <tr><td><code>business_units</code></td><td>id, menu_name, official_name, kbli_code, slug (unique), summary, description (TEXT, HTML tersanitasi), <strong>services</strong> (JSON array), icon, <strong>wa_message</strong>, cover_image_id, cover_image_url, sort_order, is_active, timestamps</td><td>4 bidang usaha</td></tr>
+    <tr><td><code>gallery_photos</code></td><td>id, business_unit_id (FK, cascade), image_public_id, image_url, width, height, caption, sort_order, is_active, timestamps</td><td>Dokumentasi pekerjaan; file di <code>arsindo/gallery/{slug}</code></td></tr>
+    <tr><td><code>sliders</code></td><td>id, image_public_id, image_url, title, subtitle, button_text, button_link, sort_order, is_active, timestamps</td><td>Banner beranda</td></tr>
+    <tr><td><code>settings</code></td><td>id, key (unique), value (TEXT), timestamps</td><td>Profil perusahaan (key-value; misi &amp; nilai disimpan JSON)</td></tr>
+    <tr><td><code>contact_messages</code></td><td>id, name, email, phone, business_unit_id (FK nullable, set null), message, is_read, <strong>ip_hash</strong>, timestamps</td><td>Pesan formulir kontak</td></tr>
+    <tr><td><code>vehicles</code> <span class="tag">tambahan</span></td><td>id, name, slug (unique), brand, category, transmission, fuel, seats, year, description, features (JSON), cover_image_id/url, sort_order, is_active, timestamps</td><td>Armada rental — <strong>terpisah</strong> dari galeri dokumentasi</td></tr>
+    <tr><td><code>vehicle_photos</code> <span class="tag">tambahan</span></td><td>id, vehicle_id (FK, cascade), image_public_id, image_url, width, height, caption, sort_order, is_active, timestamps</td><td>Foto per unit; file di <code>arsindo/fleet/{slug}</code></td></tr>
+    <tr><td><code>rate_limits</code> <span class="tag">tambahan</span></td><td>key (PK), count, window_start</td><td>Rate limit login &amp; formulir yang konsisten di semua instance serverless</td></tr>
+  </tbody></table>
+  <h3>Key pada tabel <code>settings</code></h3>
+  <p><code>company_name, company_short_name, company_tagline, company_form, established_year, short_profile, profile, vision, missions (JSON), values (JSON [{title,description}]), commitment, nib, npwp, address, phone, email, whatsapp, business_hours, maps_embed_url, maps_link, logo_url, logo_public_id, wa_default_message</code></p>
+  <h3>Seeder (<code>npm run db:seed</code>)</h3>
+  <ul>
+    <li>1 akun admin dari <code>SEED_ADMIN_*</code> (tidak menimpa password bila akun sudah ada).</li>
+    <li>4 bidang usaha sesuai PRD beserta deskripsi, daftar layanan, dan pesan WhatsApp otomatis.</li>
+    <li>23 key profil perusahaan (alamat Perum Semesta Blok L 13, Kemiling, Bandar Lampung; telp/WA 08117913336; email arsindoniagasejahtera@outlook.com).</li>
+    <li>2 contoh armada dalam status <strong>nonaktif</strong> — lengkapi data &amp; foto unit asli lalu aktifkan.</li>
+    <li>Seeder bersifat idempoten (upsert): aman dijalankan ulang tanpa menimpa konten yang sudah diubah admin.</li>
+  </ul>
+</section>
+
+<section id="env">
+  <h2>7. Environment variables</h2>
+  <table><thead><tr><th>Variabel</th><th>Wajib</th><th>Contoh / keterangan</th></tr></thead><tbody>
+    <tr><td><code>DATABASE_URL</code></td><td>Ya</td><td>Lokal: <code>mysql://root:@127.0.0.1:3306/arsindo</code><br>TiDB: <code>mysql://USER:PASS@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/arsindo?sslaccept=strict</code> (TLS otomatis aktif untuk host *.tidbcloud.com atau parameter <code>sslaccept=strict</code>/<code>ssl=true</code>; opsional <code>connection_limit</code>, default 5)</td></tr>
+    <tr><td><code>AUTH_SECRET</code></td><td>Ya</td><td>String acak ≥ 32 karakter (<code>npx auth secret</code> / <code>openssl rand -base64 32</code>)</td></tr>
+    <tr><td><code>AUTH_URL</code></td><td>Production</td><td><code>https://arsindoniaga.co.id</code></td></tr>
+    <tr><td><code>AUTH_TRUST_HOST</code></td><td>Ya</td><td><code>true</code> (di belakang proxy Netlify)</td></tr>
+    <tr><td><code>NEXT_PUBLIC_SITE_URL</code></td><td>Ya</td><td>URL kanonik untuk metadata, sitemap, Open Graph</td></tr>
+    <tr><td><code>CLOUDINARY_CLOUD_NAME</code>, <code>CLOUDINARY_API_KEY</code>, <code>CLOUDINARY_API_SECRET</code></td><td>Ya (upload)</td><td>Dashboard Cloudinary → API Keys. Secret hanya dipakai di server.</td></tr>
+    <tr><td><code>NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME</code></td><td>Opsional</td><td>Sama dengan cloud name</td></tr>
+    <tr><td><code>CLOUDINARY_ROOT_FOLDER</code></td><td>Opsional</td><td>Default <code>arsindo</code></td></tr>
+    <tr><td><code>SEED_ADMIN_NAME</code>, <code>SEED_ADMIN_EMAIL</code>, <code>SEED_ADMIN_PASSWORD</code></td><td>Saat seed</td><td>Akun admin awal</td></tr>
+    <tr><td><code>IP_HASH_SALT</code></td><td>Disarankan</td><td>Salt hash IP untuk rate limit &amp; log pesan (IP mentah tidak pernah disimpan)</td></tr>
+  </tbody></table>
+  <div class="note warn"><strong>Jangan commit file <code>.env</code>.</strong> <code>.gitignore</code> hanya mengizinkan <code>.env.example</code>. Di production semua secret diisi di Netlify → Site configuration → Environment variables.</div>
+</section>
+
+<section id="actions">
+  <h2>8. Server Actions &amp; API</h2>
+  <p>Semua mutasi memakai <strong>Server Actions</strong> (<code>src/server/actions/*.ts</code>). Setiap action admin: (1) memanggil <code>requireAdmin()</code> (cek sesi ulang, tidak hanya mengandalkan proxy), (2) memvalidasi input dengan Zod, (3) menulis ke database, (4) membersihkan file Cloudinary yang tidak terpakai, (5) memanggil revalidation. Nilai kembali bertipe <code>ActionResult = {ok:true,message?,data?} | {ok:false,error,fieldErrors?}</code>.</p>
+  <table><thead><tr><th>Modul</th><th>Action</th><th>Keterangan</th></tr></thead><tbody>
+    <tr><td><code>auth.ts</code></td><td>loginAction, logoutAction</td><td>Login via Auth.js Credentials; pesan error ramah; callbackUrl dibatasi ke /admin</td></tr>
+    <tr><td><code>contact.ts</code> (publik)</td><td>submitContact</td><td>Zod, honeypot, time-trap 3 detik, rate limit 3 pesan/10 menit/IP</td></tr>
+    <tr><td><code>business-units.ts</code></td><td>saveBusinessUnit, deleteBusinessUnit, toggleBusinessUnit, reorderBusinessUnits</td><td>Deskripsi disanitasi; hapus unit ikut menghapus foto di Cloudinary</td></tr>
+    <tr><td><code>gallery.ts</code></td><td>addGalleryPhotos, updateGalleryCaption, toggleGalleryPhoto, reorderGalleryPhotos, deleteGalleryPhotos</td><td>Aset diverifikasi ke Cloudinary (folder, format, ≤ 5 MB) sebelum disimpan</td></tr>
+    <tr><td><code>sliders.ts</code></td><td>saveSlider, deleteSlider, toggleSlider, reorderSliders</td><td></td></tr>
+    <tr><td><code>vehicles.ts</code></td><td>saveVehicle, deleteVehicle, toggleVehicle, reorderVehicles, addVehiclePhotos, updateVehiclePhotoCaption, toggleVehiclePhoto, reorderVehiclePhotos, deleteVehiclePhotos</td><td>Armada &amp; fotonya</td></tr>
+    <tr><td><code>settings.ts</code></td><td>saveSettings</td><td>Upsert semua key; nomor WA dinormalisasi ke format 62…</td></tr>
+    <tr><td><code>messages.ts</code></td><td>setMessageRead, markAllMessagesRead, deleteMessages</td><td></td></tr>
+    <tr><td><code>users.ts</code></td><td>createAdminUser, deleteAdminUser, changeOwnPassword, resetAdminPassword</td><td>Tidak bisa menghapus akun sendiri / admin terakhir</td></tr>
+  </tbody></table>
+  <h3>Route Handlers</h3>
+  <table><thead><tr><th>Method &amp; path</th><th>Akses</th><th>Fungsi</th></tr></thead><tbody>
+    <tr><td><code>GET/POST /api/auth/*</code></td><td>Publik</td><td>Endpoint Auth.js (session, csrf, callback credentials, signout)</td></tr>
+    <tr><td><code>POST /api/admin/cloudinary/sign</code></td><td>Admin (401 bila tanpa sesi)</td><td>Body <code>{"folder":"arsindo/gallery/jasa"}</code> → <code>{timestamp, folder, allowed_formats, signature, apiKey, cloudName}</code>. Folder di-whitelist: <code>arsindo/(gallery|fleet)/{slug}</code>, <code>arsindo/(sliders|covers|brand)</code>.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="keamanan">
+  <h2>9. Keamanan</h2>
+  <div class="grid2">
+    <div class="card"><h4>Autentikasi</h4><p>Auth.js Credentials, password bcrypt (cost 12), sesi JWT dalam cookie httpOnly/secure (8 jam). Perbandingan hash dilakukan walau email tidak terdaftar (waktu respons seragam).</p></div>
+    <div class="card"><h4>Otorisasi berlapis</h4><p><code>proxy.ts</code> mengunci <code>/admin/*</code> dan <code>/api/admin/*</code>; setiap halaman &amp; Server Action admin memanggil <code>requireAdmin()</code> lagi.</p></div>
+    <div class="card"><h4>Brute-force</h4><p>Maks 5 login gagal per menit per IP dan per email (tabel <code>rate_limits</code>, berlaku lintas instance serverless).</p></div>
+    <div class="card"><h4>Validasi server</h4><p>Semua input divalidasi Zod di server; HTML rich text disanitasi (<code>sanitize-html</code>, whitelist tag); ID dan urutan divalidasi.</p></div>
+    <div class="card"><h4>Anti-spam formulir</h4><p>Honeypot field tersembunyi, time-trap (&lt; 3 detik = bot), rate limit 3 pesan/10 menit/IP; IP disimpan sebagai hash SHA-256 ber-salt.</p></div>
+    <div class="card"><h4>Upload</h4><p>Signed upload (signature dibuat server, hanya untuk admin, folder whitelist, <code>allowed_formats</code>), lalu verifikasi ulang ke Cloudinary API (format &amp; ukuran) — aset tidak valid otomatis dihapus.</p></div>
+    <div class="card"><h4>Header keamanan</h4><p>HSTS, X-Frame-Options SAMEORIGIN, X-Content-Type-Options nosniff, Referrer-Policy, Permissions-Policy; header <code>X-Powered-By</code> dimatikan. Admin &amp; API di-<code>noindex</code>/<code>Disallow</code>.</p></div>
+    <div class="card"><h4>Secret</h4><p>Hanya melalui environment variables; tidak ada secret di kode/Git. Server Actions Next.js memiliki proteksi CSRF bawaan (cek Origin).</p></div>
+  </div>
+</section>
+
+<section id="media">
+  <h2>10. Upload &amp; Cloudinary</h2>
+  <ol class="steps">
+    <li>Admin memilih/seret foto (maks 20, JPG/PNG/WebP, ≤ 5 MB) — divalidasi di browser.</li>
+    <li>Foto besar dikompres ringan di browser (sisi terpanjang ≤ 2400 px) untuk menghemat kuota.</li>
+    <li>Browser meminta signature ke <code>/api/admin/cloudinary/sign</code>, lalu meng-upload <strong>langsung ke Cloudinary</strong> (3 file paralel, progress per file) — tidak melewati batas ukuran request serverless Netlify.</li>
+    <li>Hasil (public_id, URL, dimensi) dikirim ke Server Action yang memverifikasi tiap aset via Cloudinary Admin API, lalu menyimpan ke database dengan urutan berikutnya.</li>
+    <li>Tampilan memakai transformasi URL: <code>f_auto,q_auto,c_limit,w_…</code> → WebP/AVIF otomatis; thumbnail admin 400 px, lightbox 1600 px, <code>next/image</code> dengan loader Cloudinary (srcset responsif, lazy-load).</li>
+    <li>Saat foto/slider/sampul/logo dihapus atau diganti, file di Cloudinary ikut dihapus (<code>uploader.destroy</code>/<code>delete_resources</code>, invalidate CDN).</li>
+  </ol>
+  <p>Struktur folder: <code>arsindo/gallery/{slug-bidang}</code>, <code>arsindo/fleet/{slug-armada}</code>, <code>arsindo/sliders</code>, <code>arsindo/covers</code>, <code>arsindo/brand</code>.</p>
+  <div class="note">Jika slug bidang usaha/armada diubah setelah ada foto, foto lama tetap berfungsi (URL tersimpan di database); upload baru masuk ke folder slug baru.</div>
+</section>
+
+<section id="seo">
+  <h2>11. SEO, performa, aksesibilitas</h2>
+  <ul>
+    <li><strong>Metadata API</strong> per halaman (title template, description, canonical, Open Graph &amp; gambar OG dinamis 1200×630), <code>sitemap.xml</code> (termasuk detail bidang usaha &amp; armada aktif), <code>robots.txt</code>, JSON-LD <code>LocalBusiness</code>, <code>lang="id"</code>, alt text foto dari caption.</li>
+    <li><strong>Performa:</strong> halaman statis ISR; font self-hosted + preload + fallback metrics (CLS 0); gambar via Cloudinary (format/ukuran otomatis); Google Maps dimuat hanya saat terlihat; prefetch link konten dimatikan agar tidak membebani main thread; animasi berbasis CSS + satu IntersectionObserver global; dekorasi memakai radial-gradient (bukan filter blur).</li>
+    <li><strong>Aksesibilitas:</strong> skip link, landmark &amp; aria-label navigasi, fokus terlihat, kontras warna memenuhi WCAG AA, dukungan <code>prefers-reduced-motion</code>, drag-and-drop admin dapat dioperasikan dengan keyboard (Space → panah → Space).</li>
+    <li><strong>Responsif:</strong> diuji otomatis tanpa scroll horizontal pada 360, 768, 1024, 1920 px.</li>
+  </ul>
+</section>
+
+<section id="lokal">
+  <h2>12. Instalasi lokal</h2>
+<pre><code># Prasyarat: Node.js 22 (min 20.9), MySQL 8 (Laragon/XAMPP/Docker), Git
+git clone https://github.com/&lt;org&gt;/arsindo-niaga-sejahtera.git
+cd arsindo-niaga-sejahtera
+npm install                       # postinstall: prisma generate
+copy .env.example .env            # isi DATABASE_URL, AUTH_SECRET, CLOUDINARY_*
+# buat database kosong "arsindo" (utf8mb4) di MySQL
+npx prisma migrate deploy         # terapkan migration
+npm run db:seed                   # data awal
+npm run dev                       # http://localhost:3000 dan /admin</code></pre>
+  <p>Menjalankan pengujian E2E: <code>npm run build &amp;&amp; npm start</code> di satu terminal, lalu <code>npx playwright install chromium</code> (sekali) dan <code>npm run test:e2e</code>. Laporan HTML tersimpan di <code>tests/report</code>.</p>
+  <div class="note">Mengubah schema: edit <code>prisma/schema.prisma</code> → <code>npm run db:migrate -- --name deskripsi_perubahan</code> → commit folder migration baru. Pada pemakaian pertama, jalankan <code>npx prisma migrate dev</code> sekali di database lokal; hasilnya harus “Already in sync”.</div>
+</section>
+
+<section id="deploy">
+  <h2>13. Prosedur deployment (Netlify + TiDB + Cloudinary)</h2>
+  <h3>A. Database — TiDB Cloud Serverless</h3>
+  <ol class="steps">
+    <li>Daftar di tidbcloud.com → <em>Create Cluster</em> (Serverless, region Singapore <code>ap-southeast-1</code>).</li>
+    <li><em>Connect</em> → pilih “General”, buat password → salin host, port 4000, user (format <code>xxxx.root</code>).</li>
+    <li>Buat database: <code>CREATE DATABASE arsindo;</code> (SQL Editor).</li>
+    <li><code>DATABASE_URL=mysql://xxxx.root:PASSWORD@gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/arsindo?sslaccept=strict</code></li>
+  </ol>
+  <h3>B. Cloudinary</h3>
+  <ol class="steps"><li>Daftar akun gratis → Settings → API Keys: catat Cloud name, API Key, API Secret.</li><li>(Opsional) Settings → Security: aktifkan “Strict transformations” tidak diperlukan; biarkan default.</li></ol>
+  <h3>C. GitHub &amp; Netlify</h3>
+  <ol class="steps">
+    <li>Push repo ke GitHub (branch <code>main</code>).</li>
+    <li>Netlify → <em>Add new site → Import an existing project</em> → pilih repo. Build settings otomatis dari <code>netlify.toml</code> (<code>npx prisma migrate deploy &amp;&amp; npm run build</code>, Node 22).</li>
+    <li>Isi environment variables (bagian 7) untuk scope <em>Builds</em> dan <em>Functions</em>. <code>AUTH_URL</code> &amp; <code>NEXT_PUBLIC_SITE_URL</code> = URL final.</li>
+    <li><em>Deploy site</em>. Migration otomatis diterapkan saat build.</li>
+    <li>Seeder (sekali): di komputer lokal set <code>DATABASE_URL</code> production sementara lalu <code>npm run db:seed</code>. Login ke <code>/admin</code>, <strong>ganti password</strong>, lengkapi NIB/NPWP, logo, slider, dan foto.</li>
+  </ol>
+  <h3>D. Domain &amp; HTTPS</h3>
+  <ol class="steps">
+    <li>Netlify → Domain management → <em>Add a domain</em> (mis. <code>arsindoniaga.co.id</code>).</li>
+    <li>Di DNS registrar: <code>A @ → 75.2.60.5</code> dan <code>CNAME www → &lt;nama-site&gt;.netlify.app</code> (atau gunakan Netlify DNS).</li>
+    <li>Tunggu propagasi, Netlify menerbitkan sertifikat Let's Encrypt otomatis → aktifkan “Force HTTPS”.</li>
+    <li>Perbarui <code>AUTH_URL</code> &amp; <code>NEXT_PUBLIC_SITE_URL</code> ke domain final → <em>Trigger deploy</em>.</li>
+    <li>Daftarkan <code>https://domain/sitemap.xml</code> di Google Search Console.</li>
+  </ol>
+  <h3>E. Checklist verifikasi pasca-deploy</h3>
+  <ul>
+    <li>☐ <code>https://domain</code> terbuka dengan gembok HTTPS, http → https redirect.</li>
+    <li>☐ Login admin, upload 10 foto ke “Rental Mobil”, foto tampil di <code>/bidang-usaha/rental-mobil</code>.</li>
+    <li>☐ Ubah urutan, nonaktifkan, dan hapus foto → website ikut berubah.</li>
+    <li>☐ Kirim formulir kontak → muncul di Pesan Masuk.</li>
+    <li>☐ PageSpeed Insights mobile ≥ 80 untuk Beranda.</li>
+  </ul>
+</section>
+
+<section id="pemeliharaan">
+  <h2>14. Pemeliharaan</h2>
+  <table><thead><tr><th>Tugas</th><th>Frekuensi</th><th>Cara</th></tr></thead><tbody>
+    <tr><td>Backup database</td><td>Mingguan (otomatis)</td><td>Workflow <code>.github/workflows/backup-db.yml</code> (Senin 02:00 WIB) menjalankan <code>mysqldump</code> → artifact <code>.sql.gz</code> (simpan 90 hari). Isi GitHub Secrets: <code>DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME</code>. Bisa dijalankan manual (<em>Run workflow</em>).</td></tr>
+    <tr><td>Restore</td><td>Saat diperlukan</td><td>Unduh artifact → <code>gunzip -c file.sql.gz | mysql -h HOST -P 4000 -u USER -p --ssl-mode=VERIFY_IDENTITY arsindo</code></td></tr>
+    <tr><td>Pantau kuota gratis</td><td>Bulanan</td><td>Netlify (bandwidth, build minutes, function invocations), TiDB (Request Units, storage), Cloudinary (credits/storage). Kompres foto sebelum upload.</td></tr>
+    <tr><td>Update dependency</td><td>Tiap 1–3 bulan</td><td><code>npm outdated</code> → update minor/patch → <code>npm run lint &amp;&amp; npm run typecheck &amp;&amp; npm run build</code> → uji E2E → deploy. Catatan: next-auth v5 masih beta — ikuti rilis stabilnya.</td></tr>
+    <tr><td>Rotasi secret</td><td>Tahunan / bila bocor</td><td>Ganti <code>AUTH_SECRET</code> (semua admin ter-logout), API Secret Cloudinary, password DB → update env Netlify → redeploy.</td></tr>
+    <tr><td>Pembersihan</td><td>Otomatis</td><td>Entri <code>rate_limits</code> lama dibersihkan berkala oleh aplikasi.</td></tr>
+  </tbody></table>
+  <h3>Troubleshooting</h3>
+  <table><thead><tr><th>Gejala</th><th>Penyebab umum &amp; solusi</th></tr></thead><tbody>
+    <tr><td>Build gagal “DATABASE_URL belum diisi” / timeout DB</td><td>Env belum diisi untuk scope Builds atau IP/SSL. Pastikan <code>?sslaccept=strict</code> untuk TiDB.</td></tr>
+    <tr><td>Upload: “Cloudinary belum dikonfigurasi”</td><td>Isi <code>CLOUDINARY_*</code> lalu redeploy.</td></tr>
+    <tr><td>Perubahan admin belum tampil</td><td>Muat ulang halaman (revalidation terjadi pada request berikutnya). Jika tetap, cek log Functions Netlify.</td></tr>
+    <tr><td>Login “Terlalu banyak percobaan”</td><td>Tunggu 1 menit (5 kali gagal/menit).</td></tr>
+    <tr><td>Lupa password semua admin</td><td>Set <code>SEED_ADMIN_EMAIL</code> ke email baru lalu <code>npm run db:seed</code>, atau update <code>password_hash</code> via SQL dengan hash bcrypt baru.</td></tr>
+  </tbody></table>
+</section>
+
+<section id="operasional">
+  <h2>15. Panduan operasional admin</h2>
+  <div class="grid2">
+    <div class="card"><h4>Menambah foto dokumentasi</h4><p>Galeri Foto → pilih bidang usaha → seret foto ke kotak upload (maks 20 sekaligus) → tunggu progress selesai → isi caption → klik Simpan pada caption. Seret ikon ⋮⋮ untuk mengubah urutan; switch untuk tampil/sembunyi.</p></div>
+    <div class="card"><h4>Mengganti banner beranda</h4><p>Slider Beranda → Tambah Slider → unggah gambar landscape ≥ 1920×1080 → isi judul, subjudul, teks &amp; link tombol → Simpan. Jika semua slider dinonaktifkan, beranda memakai hero default.</p></div>
+    <div class="card"><h4>Menambah armada</h4><p>Armada Rental → Tambah Armada → isi data → Simpan → di halaman edit, unggah foto unit. Aktifkan switch agar tampil di /armada.</p></div>
+    <div class="card"><h4>Mengubah profil &amp; kontak</h4><p>Profil Perusahaan → ubah teks, NIB/NPWP, nomor WhatsApp (08xx atau 628xx), URL embed Google Maps (Bagikan → Sematkan peta → salin <code>src</code>) → Simpan Profil.</p></div>
+    <div class="card"><h4>Menindaklanjuti pesan</h4><p>Pesan Masuk → klik pesan (otomatis ditandai dibaca) → balas lewat tombol email/WA. Jumlah pesan baru tampil di menu &amp; dashboard.</p></div>
+    <div class="card"><h4>Akun admin</h4><p>Pengguna Admin → tambah akun staf (password ≥ 8 karakter, huruf + angka), reset password, atau ganti password sendiri.</p></div>
+  </div>
+</section>
+
+<section id="catatan">
+  <h2>16. Catatan &amp; keputusan teknis</h2>
+  <ul>
+    <li><strong>Penambahan terhadap PRD:</strong> tabel <code>vehicles</code> &amp; <code>vehicle_photos</code> (armada terpisah dari galeri, sesuai jawaban pertanyaan terbuka PRD), <code>rate_limits</code> (rate limit serverless), kolom <code>services</code> &amp; <code>wa_message</code> pada bidang usaha, <code>ip_hash</code> pada pesan. Menu publik ditambah “Armada”.</li>
+    <li><strong>Prisma 7</strong> dipakai dengan driver adapter MariaDB (kompatibel MySQL 8 &amp; TiDB) — tidak ada binary query engine sehingga ringan di serverless. Konfigurasi koneksi ada di <code>prisma.config.ts</code> dan <code>src/lib/prisma-factory.ts</code>.</li>
+    <li><strong>Migration awal</strong> ditulis dalam format SQL Prisma dan telah diterapkan/diuji pada MariaDB 10.11 di lingkungan pengujian. Jalankan <code>npx prisma migrate dev</code> sekali di lokal untuk memastikan schema “in sync” sebelum deploy.</li>
+    <li><strong>Komponen UI</strong> bergaya shadcn/ui ditulis langsung di <code>src/components/ui</code> (berbasis Radix UI) sehingga tidak bergantung pada CLI registry.</li>
+    <li><strong>Konten awal</strong> (deskripsi bidang usaha, profil, visi, misi, nilai, komitmen) adalah draf yang disusun dari PRD — mohon diverifikasi terhadap company profile PDF resmi dan disesuaikan melalui panel admin. NIB &amp; NPWP sengaja kosong sampai diisi admin.</li>
+    <li><strong>Tidak termasuk v1</strong> (sesuai PRD): booking/pembayaran online, katalog produk berharga/stok, multi-bahasa, blog, akun pengunjung.</li>
+  </ul>
+</section>
+</main>
+</div>
+</body></html>

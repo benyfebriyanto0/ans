@@ -1,0 +1,20 @@
+# Netlify — Next.js 16 (runtime OpenNext/Netlify dipasang otomatis)
+[build]
+  # 1) Terapkan migration ke database production, 2) generate Prisma Client, 3) build Next.js
+  command = "npx prisma migrate deploy && npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Cache aset statis Next.js (sudah ber-hash) selama 1 tahun
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

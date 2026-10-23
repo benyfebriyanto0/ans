@@ -1,0 +1,178 @@
+// Prisma schema — CV Arsindo Niaga Sejahtera
+// Database: MySQL 8 / TiDB Cloud Serverless / MariaDB (MySQL-compatible)
+
+// Prisma 7 (Rust-free): client TypeScript + driver adapter MariaDB/MySQL.
+// URL koneksi diatur di prisma.config.ts dan src/lib/db.ts.
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+/// Akun admin
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(120)
+  email        String   @unique @db.VarChar(191)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+/// 4 bidang usaha (Perdagangan, Jasa, Perdagangan Oli, Rental Mobil)
+model BusinessUnit {
+  id              Int       @id @default(autoincrement())
+  menuName        String    @map("menu_name") @db.VarChar(100)
+  officialName    String    @map("official_name") @db.VarChar(191)
+  kbliCode        String    @map("kbli_code") @db.VarChar(10)
+  slug            String    @unique @db.VarChar(120)
+  summary         String    @db.VarChar(500)
+  description     String    @db.Text
+  /// Daftar layanan, satu baris satu layanan (disimpan sebagai JSON array string)
+  services        String    @db.Text
+  icon            String    @default("wrench") @db.VarChar(50)
+  /// Template pesan WhatsApp otomatis untuk bidang ini
+  waMessage       String?   @map("wa_message") @db.VarChar(500)
+  coverImageId    String?   @map("cover_image_id") @db.VarChar(255)
+  coverImageUrl   String?   @map("cover_image_url") @db.VarChar(500)
+  sortOrder       Int       @default(0) @map("sort_order")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  photos          GalleryPhoto[]
+  messages        ContactMessage[]
+
+  @@index([isActive, sortOrder])
+  @@map("business_units")
+}
+
+/// Foto dokumentasi pekerjaan per bidang usaha (file di Cloudinary)
+model GalleryPhoto {
+  id             Int          @id @default(autoincrement())
+  businessUnitId Int          @map("business_unit_id")
+  imagePublicId  String       @map("image_public_id") @db.VarChar(255)
+  imageUrl       String       @map("image_url") @db.VarChar(500)
+  width          Int?
+  height         Int?
+  caption        String?      @db.VarChar(255)
+  sortOrder      Int          @default(0) @map("sort_order")
+  isActive       Boolean      @default(true) @map("is_active")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  businessUnit   BusinessUnit @relation(fields: [businessUnitId], references: [id], onDelete: Cascade)
+
+  @@index([businessUnitId, isActive, sortOrder])
+  @@map("gallery_photos")
+}
+
+/// Banner slider beranda
+model Slider {
+  id            Int      @id @default(autoincrement())
+  imagePublicId String   @map("image_public_id") @db.VarChar(255)
+  imageUrl      String   @map("image_url") @db.VarChar(500)
+  title         String   @db.VarChar(191)
+  subtitle      String?  @db.VarChar(500)
+  buttonText    String?  @map("button_text") @db.VarChar(60)
+  buttonLink    String?  @map("button_link") @db.VarChar(255)
+  sortOrder     Int      @default(0) @map("sort_order")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@index([isActive, sortOrder])
+  @@map("sliders")
+}
+
+/// Pengaturan profil perusahaan (key-value)
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique @db.VarChar(100)
+  value     String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+/// Pesan dari formulir kontak
+model ContactMessage {
+  id             Int           @id @default(autoincrement())
+  name           String        @db.VarChar(120)
+  email          String        @db.VarChar(191)
+  phone          String?       @db.VarChar(30)
+  businessUnitId Int?          @map("business_unit_id")
+  message        String        @db.Text
+  isRead         Boolean       @default(false) @map("is_read")
+  ipHash         String?       @map("ip_hash") @db.VarChar(64)
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  businessUnit   BusinessUnit? @relation(fields: [businessUnitId], references: [id], onDelete: SetNull)
+
+  @@index([isRead, createdAt])
+  @@map("contact_messages")
+}
+
+/// Armada rental mobil — dikelola terpisah dari galeri dokumentasi pekerjaan
+model Vehicle {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(120)
+  slug          String         @unique @db.VarChar(140)
+  brand         String?        @db.VarChar(60)
+  category      String         @db.VarChar(60) // MPV, SUV, Sedan, Pick-up, Minibus, dll.
+  transmission  String         @default("Manual") @db.VarChar(20)
+  fuel          String         @default("Bensin") @db.VarChar(20)
+  seats         Int            @default(7)
+  year          Int?
+  description   String?        @db.Text
+  /// Fitur/fasilitas (JSON array string), contoh ["AC","Audio","Driver tersedia"]
+  features      String         @db.Text
+  coverImageId  String?        @map("cover_image_id") @db.VarChar(255)
+  coverImageUrl String?        @map("cover_image_url") @db.VarChar(500)
+  sortOrder     Int            @default(0) @map("sort_order")
+  isActive      Boolean        @default(true) @map("is_active")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  photos        VehiclePhoto[]
+
+  @@index([isActive, sortOrder])
+  @@map("vehicles")
+}
+
+/// Foto per unit armada
+model VehiclePhoto {
+  id            Int      @id @default(autoincrement())
+  vehicleId     Int      @map("vehicle_id")
+  imagePublicId String   @map("image_public_id") @db.VarChar(255)
+  imageUrl      String   @map("image_url") @db.VarChar(500)
+  width         Int?
+  height        Int?
+  caption       String?  @db.VarChar(255)
+  sortOrder     Int      @default(0) @map("sort_order")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  vehicle       Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId, isActive, sortOrder])
+  @@map("vehicle_photos")
+}
+
+/// Rate limit berbasis database (aman untuk serverless multi-instance)
+model RateLimit {
+  key         String   @id @db.VarChar(191)
+  count       Int      @default(0)
+  windowStart DateTime @map("window_start")
+
+  @@map("rate_limits")
+}

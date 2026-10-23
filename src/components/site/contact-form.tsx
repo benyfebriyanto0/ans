@@ -102,7 +102,7 @@ export function ContactForm({
       <div className="space-y-2">
         <Label htmlFor="cf-unit">Bidang usaha yang diminati</Label>
         <NativeSelect id="cf-unit" {...register("businessUnitId")}>
-          <option value="">— Pilih (opsional) —</option>
+          <option value="">Pilih (opsional)</option>
           {units.map((u) => (
             <option key={u.id} value={u.id}>
               {u.menuName}

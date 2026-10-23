@@ -53,7 +53,7 @@ export function ConsultForm({
     <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
       <div className={`space-y-2 ${items.length ? "" : "sm:col-span-2"}`}>
         <Label htmlFor="cs-name">Nama / perusahaan</Label>
-        <Input id="cs-name" required value={f.name} onChange={set("name")} placeholder="Contoh: Budi — PT Maju Jaya" />
+        <Input id="cs-name" required value={f.name} onChange={set("name")} placeholder="Contoh: Budi, PT Maju Jaya" />
       </div>
       {items.length > 0 && (
         <div className="space-y-2">
@@ -85,7 +85,7 @@ export function ConsultForm({
           Lanjut ke WhatsApp <ArrowUpRight />
         </Button>
         <p className="mt-3 text-xs text-muted-foreground">
-          Formulir ini hanya menyiapkan pesan WhatsApp — belum merupakan konfirmasi pesanan. Harga dan ketersediaan
+          Formulir ini hanya menyiapkan pesan WhatsApp dan belum merupakan konfirmasi pesanan. Harga dan ketersediaan
           dikonfirmasi langsung oleh admin kami.
         </p>
       </div>

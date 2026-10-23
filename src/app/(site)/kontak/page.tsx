@@ -39,7 +39,7 @@ export default async function ContactPage() {
       <PageHero
         eyebrow="Kontak"
         title="Mari berdiskusi tentang kebutuhan Anda"
-        description="Kirimkan pertanyaan atau permintaan penawaran — tim kami akan merespons secepatnya pada jam kerja."
+        description="Kirimkan pertanyaan atau permintaan penawaran, tim kami akan merespons secepatnya pada jam kerja."
         crumbs={[{ href: "/", label: "Beranda" }, { label: "Kontak" }]}
       />
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-12 lg:px-8">

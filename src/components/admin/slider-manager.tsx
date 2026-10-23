@@ -64,7 +64,7 @@ export function SliderManager({ sliders, folder }: { sliders: SliderRow[]; folde
                 />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold">{s.title}</p>
-                  <p className="truncate text-xs text-muted-foreground">{s.subtitle || "—"}</p>
+                  <p className="truncate text-xs text-muted-foreground">{s.subtitle || "Tanpa subjudul"}</p>
                 </div>
                 <ActiveSwitch id={s.id} initial={s.isActive} action={toggleSlider} />
                 <Button

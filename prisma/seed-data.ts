@@ -118,7 +118,7 @@ export const settings: Record<string, string> = {
   phone: "08117913336",
   email: "arsindoniagasejahtera@outlook.com",
   whatsapp: "628117913336",
-  business_hours: "Senin – Sabtu, 08.00 – 17.00 WIB",
+  business_hours: "Senin s.d. Sabtu, 08.00 s.d. 17.00 WIB",
   maps_embed_url: "https://www.google.com/maps?q=Perum+Semesta+Kemiling+Bandar+Lampung&output=embed",
   maps_link: "https://maps.google.com/?q=Perum+Semesta+Kemiling+Bandar+Lampung",
   logo_url: "",

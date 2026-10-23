@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PageProps<"/bidang-usaha/[slu
   if (!unit) return { title: "Tidak ditemukan" };
   const image = unit.coverImageUrl || unit.photos[0]?.imageUrl;
   return {
-    title: `${unit.menuName} — ${unit.officialName}`,
+    title: `${unit.menuName} | ${unit.officialName}`,
     description: unit.summary || stripHtml(unit.description).slice(0, 160),
     alternates: { canonical: `/bidang-usaha/${unit.slug}` },
     openGraph: {
@@ -144,7 +144,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
               {heroImage ? (
                 <CldImage
                   src={heroImage}
-                  alt={`${unit.menuName} — ${s.companyName}`}
+                  alt={`${unit.menuName}, ${s.companyName}`}
                   fill
                   priority
                   sizes="(min-width:1024px) 50vw, 100vw"

@@ -14,7 +14,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Armada Rental Mobil",
   description:
-    "Daftar armada rental mobil CV Arsindo Niaga Sejahtera di Bandar Lampung — jenis kendaraan, kapasitas, dan foto unit.",
+    "Daftar armada rental mobil CV Arsindo Niaga Sejahtera di Bandar Lampung: jenis kendaraan, kapasitas, dan foto unit.",
   alternates: { canonical: "/armada" },
 };
 
@@ -26,7 +26,7 @@ export default async function FleetPage() {
       <PageHero
         eyebrow="Rental Mobil"
         title="Armada Rental Mobil"
-        description="Kendaraan bersih, terawat, dan siap pakai — tersedia sewa harian, mingguan, hingga bulanan, lepas kunci atau dengan pengemudi."
+        description="Kendaraan bersih, terawat, dan siap pakai. Tersedia sewa harian, mingguan, hingga bulanan, lepas kunci atau dengan pengemudi."
         crumbs={[
           { href: "/", label: "Beranda" },
           { href: "/bidang-usaha/rental-mobil", label: "Rental Mobil" },

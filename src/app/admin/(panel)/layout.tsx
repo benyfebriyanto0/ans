@@ -16,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="min-h-dvh bg-muted/40">
       <AdminNav unread={unread} user={{ name: me.name, email: me.email }} />
       <div className="lg:pl-64">
-        <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+        <main className="w-full px-4 py-6 sm:px-6 lg:px-10 lg:py-8 2xl:px-12">{children}</main>
       </div>
       <Toaster richColors position="top-right" closeButton />
     </div>

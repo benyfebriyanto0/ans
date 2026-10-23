@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | CV Arsindo Niaga Sejahtera",
   },
   description:
-    "CV Arsindo Niaga Sejahtera — perdagangan suku cadang mesin & peralatan industri, jasa reparasi mesin, perdagangan oli & pelumas, serta rental mobil di Bandar Lampung.",
+    "CV Arsindo Niaga Sejahtera: perdagangan suku cadang mesin & peralatan industri, jasa reparasi mesin, perdagangan oli & pelumas, serta rental mobil di Bandar Lampung.",
   applicationName: "Arsindo Niaga Sejahtera",
   formatDetection: { telephone: false },
 };

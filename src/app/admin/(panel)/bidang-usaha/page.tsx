@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ExternalLink, Images, Pencil, Plus } from "lucide-react";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { SortableRows } from "@/components/admin/sortable-rows";
 import { ActiveSwitch } from "@/components/admin/active-switch";
@@ -48,12 +47,7 @@ export default async function AdminUnitsPage() {
                 <UnitIcon name={u.icon} className="size-5" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold">
-                  {u.menuName}{" "}
-                  <Badge variant="outline" className="ml-1 font-mono">
-                    {u.kbliCode}
-                  </Badge>
-                </p>
+                <p className="font-semibold">{u.menuName}</p>
                 <p className="truncate text-xs text-muted-foreground">
                   {u.officialName} · /bidang-usaha/{u.slug}
                 </p>

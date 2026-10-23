@@ -30,10 +30,8 @@ export type ContactInput = z.input<typeof contactSchema>;
 export const businessUnitSchema = z.object({
   menuName: z.string().trim().min(2, "Wajib diisi").max(100),
   officialName: z.string().trim().min(2, "Wajib diisi").max(191),
-  kbliCode: z
-    .string()
-    .trim()
-    .regex(/^\d{5}$/, "KBLI harus 5 digit angka"),
+  // Tidak ditampilkan lagi di website maupun form admin; nilai lama tetap disimpan apa adanya.
+  kbliCode: z.string().trim().max(10).optional().default(""),
   slug: z
     .string()
     .trim()

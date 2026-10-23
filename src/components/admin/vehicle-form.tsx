@@ -164,7 +164,7 @@ export function VehicleForm({
               folder={coverFolder}
               label="Foto sampul"
               aspect="aspect-[16/10]"
-              hint="Opsional — jika kosong, foto pertama galeri unit dipakai."
+              hint="Opsional. Jika kosong, foto pertama galeri unit dipakai."
               value={{ publicId: watch("coverImageId") ?? null, url: watch("coverImageUrl") ?? null }}
               onChange={(v) => {
                 setValue("coverImageId", v.publicId ?? "");

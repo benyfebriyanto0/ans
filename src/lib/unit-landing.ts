@@ -56,7 +56,7 @@ const BY_SLUG: Record<string, Partial<UnitLanding>> = {
     headline: "Suku cadang tepat,",
     highlight: "mesin tetap berjalan.",
     intro:
-      "Pengadaan suku cadang mesin dan peralatan industri sesuai spesifikasi — untuk pabrik, perkebunan, tambang, dan konstruksi.",
+      "Pengadaan suku cadang mesin dan peralatan industri sesuai spesifikasi, untuk pabrik, perkebunan, tambang, dan konstruksi.",
     servicesTitle: "Butuh komponen apa hari ini?",
     features: [
       { title: "Sesuai spesifikasi", text: "Bantu identifikasi part number & alternatif setara." },
@@ -71,7 +71,7 @@ const BY_SLUG: Record<string, Partial<UnitLanding>> = {
     faq: [
       {
         q: "Bisa cari barang berdasarkan part number?",
-        a: "Bisa. Kirimkan part number, foto, atau spesifikasi barang lama Anda — kami bantu carikan yang sesuai atau setara.",
+        a: "Bisa. Kirimkan part number, foto, atau spesifikasi barang lama Anda, kami bantu carikan yang sesuai atau setara.",
       },
       {
         q: "Apakah melayani pembelian rutin perusahaan?",
@@ -142,12 +142,12 @@ const BY_SLUG: Record<string, Partial<UnitLanding>> = {
     headline: "Perjalanan nyaman.",
     highlight: "Urusan mobil serahkan ke kami.",
     intro:
-      "Sewa kendaraan bersih dan terawat untuk agenda kerja, operasional proyek, hingga liburan keluarga — lepas kunci atau dengan pengemudi.",
+      "Sewa kendaraan bersih dan terawat untuk agenda kerja, operasional proyek, hingga liburan keluarga, lepas kunci atau dengan pengemudi.",
     servicesTitle: "Mau pergi naik apa?",
     features: [
       { title: "Armada terawat", text: "Bersih, rutin diservis, siap pakai." },
       { title: "Fleksibel", text: "Lepas kunci atau dengan pengemudi." },
-      { title: "Harian – bulanan", text: "Untuk pribadi maupun perusahaan." },
+      { title: "Harian hingga bulanan", text: "Untuk pribadi maupun perusahaan." },
     ],
     steps: [
       { title: "Ceritakan rencana perjalanan", text: "Tanggal, durasi sewa, jenis mobil, dan lokasi penjemputan." },

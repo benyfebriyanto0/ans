@@ -18,7 +18,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
   return {
-    title: { absolute: `${s.companyName} — ${s.tagline || "Company Profile"}` },
+    title: { absolute: `${s.companyName} | ${s.tagline || "Company Profile"}` },
     description: s.shortProfile,
     alternates: { canonical: "/" },
     openGraph: {

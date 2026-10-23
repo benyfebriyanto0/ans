@@ -25,7 +25,7 @@ export function UnitCard({ unit, index = 0 }: { unit: UnitCardData; index?: numb
         {unit.coverImageUrl ? (
           <CldImage
             src={unit.coverImageUrl}
-            alt={`${unit.menuName} — ${unit.officialName}`}
+            alt={`${unit.menuName}, ${unit.officialName}`}
             fill
             sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"

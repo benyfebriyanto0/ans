@@ -72,9 +72,6 @@ export function BusinessUnitForm({
                 })}
               />
             </Field>
-            <Field label="Kode KBLI" htmlFor="kbliCode" error={e.kbliCode?.message} required>
-              <Input id="kbliCode" inputMode="numeric" maxLength={5} {...register("kbliCode")} />
-            </Field>
             <Field
               label="Nama resmi"
               htmlFor="officialName"

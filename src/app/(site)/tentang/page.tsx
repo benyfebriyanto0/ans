@@ -22,10 +22,10 @@ export default async function AboutPage() {
   const legal = [
     { label: "Nama Perusahaan", value: s.companyName },
     { label: "Bentuk Usaha", value: s.companyForm },
-    { label: "NIB", value: s.nib || "—" },
-    { label: "NPWP", value: s.npwp || "—" },
+    { label: "NIB", value: s.nib },
+    { label: "NPWP", value: s.npwp },
     { label: "Alamat", value: s.address },
-  ];
+  ].filter((r) => r.value);
 
   return (
     <>

@@ -28,13 +28,14 @@ test.describe("Panel admin — konten & revalidation", () => {
     await db.businessUnit.update({ where: { id: unit.id }, data: { summary: unit.summary } });
   });
 
-  test("validasi server: KBLI harus 5 digit", async ({ page }) => {
+  test("validasi: nama menu wajib diisi & KBLI tidak tampil", async ({ page }) => {
     const unit = await db.businessUnit.findUniqueOrThrow({ where: { slug: "jasa" } });
     await loginAsAdmin(page);
     await page.goto(`/admin/bidang-usaha/${unit.id}`);
-    await page.getByLabel(/Kode KBLI/).fill("12");
+    await expect(page.getByText(/KBLI/)).toHaveCount(0);
+    await page.getByLabel(/Nama di menu/).fill("A");
     await page.getByRole("button", { name: "Simpan" }).click();
-    await expect(page.getByText("KBLI harus 5 digit angka")).toBeVisible();
+    await expect(page.getByText("Wajib diisi").first()).toBeVisible();
   });
 
   test("galeri: urutan, nonaktif, dan hapus foto tercermin di website", async ({ page }) => {

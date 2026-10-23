@@ -24,6 +24,8 @@ export function createPrismaClient() {
     password: decodeURIComponent(url.password),
     database: url.pathname.replace(/^\//, ""),
     connectionLimit: Number(params.get("connection_limit") || 5),
+    // TiDB Starter bisa "tidur" saat idle; beri waktu cukup untuk koneksi pertama
+    connectTimeout: Number(params.get("connect_timeout") || 30) * 1000,
     ssl: useSsl ? { rejectUnauthorized: true, minVersion: "TLSv1.2" } : undefined,
     allowPublicKeyRetrieval: !useSsl,
   });

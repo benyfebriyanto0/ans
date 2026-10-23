@@ -198,8 +198,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
 
       {/* ===== Pilihan: armada (rental) atau layanan ===== */}
       <section id="pilihan" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">{isRental ? "Armada" : "Layanan"}</p>
-        <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">{L.servicesTitle}</h2>
+        <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">{L.servicesTitle}</h2>
 
         {isRental && vehicles.length > 0 ? (
           <>
@@ -299,10 +298,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
       <section className="bg-sky-soft py-20 sm:py-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-5">
-            <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Tentang layanan</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
-              {unit.officialName}
-            </h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">{unit.officialName}</h2>
           </div>
           <div className="prose-content lg:col-span-7" dangerouslySetInnerHTML={{ __html: unit.description }} />
         </div>
@@ -310,8 +306,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
 
       {/* ===== Cara kerja ===== */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Tidak perlu ribet</p>
-        <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
+        <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
           Tiga langkah. Langsung beres.
         </h2>
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
@@ -330,8 +325,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
       {/* ===== Galeri dokumentasi ===== */}
       <section id="galeri" className="scroll-mt-24 bg-sky-soft py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Galeri</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
             Dokumentasi pekerjaan {unit.menuName}
           </h2>
           <div className="mt-10">
@@ -353,10 +347,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
       <section id="konsultasi" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">
-              {isRental ? "Pemesanan" : "Konsultasi"}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
               {isRental ? "Mulai rencanakan perjalanan" : "Ceritakan kebutuhan Anda"}
             </h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
@@ -388,10 +379,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Temukan kami</p>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
-                  {s.companyName}
-                </h2>
+                <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">{s.companyName}</h2>
                 <p className="mt-2 flex items-start gap-2 text-muted-foreground">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-primary" /> {s.address}
                 </p>
@@ -413,8 +401,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
 
       {/* ===== FAQ ===== */}
       <section className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-24">
-        <p className="text-center text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">FAQ</p>
-        <h2 className="mt-3 text-center text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
+        <h2 className="text-center text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
           Ada yang ingin ditanyakan?
         </h2>
         <div className="mt-10 divide-y rounded-2xl border bg-card">

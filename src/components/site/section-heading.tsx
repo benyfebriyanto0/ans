@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 
 export function SectionHeading({
-  eyebrow,
   title,
   description,
   align = "center",
@@ -17,17 +16,6 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center", className)}>
-      {eyebrow && (
-        <p
-          className={cn(
-            "mb-3 inline-flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase",
-            inverted ? "text-accent" : "text-primary/70",
-          )}
-        >
-          <span className="h-px w-6 bg-accent" aria-hidden />
-          {eyebrow}
-        </p>
-      )}
       <h2
         className={cn(
           "text-3xl font-extrabold tracking-tight text-balance sm:text-4xl",

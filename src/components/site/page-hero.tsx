@@ -5,7 +5,6 @@ export function PageHero({
   title,
   description,
   crumbs,
-  eyebrow,
   children,
 }: {
   title: string;
@@ -39,7 +38,6 @@ export function PageHero({
             ))}
           </ol>
         </nav>
-        {eyebrow && <p className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">{eyebrow}</p>}
         <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-balance text-navy-950 sm:text-5xl">
           {title}
         </h1>

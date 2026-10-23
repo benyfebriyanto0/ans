@@ -98,7 +98,7 @@ export default async function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={150} className="relative">
-          <div className="relative overflow-hidden rounded-3xl bg-navy-950 p-8 text-white shadow-2xl sm:p-10">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 p-8 text-white shadow-2xl shadow-primary/20 sm:p-10">
             <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
             <div className="glow-accent absolute -top-16 -right-16 size-56" aria-hidden />
             <div className="relative">
@@ -154,7 +154,7 @@ export default async function HomePage() {
                 delay={i * 70}
                 className="group rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg"
               >
-                <span className="font-mono text-sm font-bold text-accent">0{i + 1}</span>
+                <span className="font-mono text-sm font-bold text-gold-600">0{i + 1}</span>
                 <h3 className="mt-3 text-lg font-bold">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
               </Reveal>
@@ -188,7 +188,7 @@ export default async function HomePage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-navy-900 to-navy-950 px-6 py-14 text-center text-white shadow-2xl sm:px-12 sm:py-16">
+        <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 px-6 py-14 text-center text-white shadow-2xl sm:px-12 sm:py-16">
           <div className="bg-grid absolute inset-0 opacity-50" aria-hidden />
           <div className="glow-accent absolute -bottom-24 left-1/2 size-96 -translate-x-1/2" aria-hidden />
           <div className="relative mx-auto max-w-2xl">

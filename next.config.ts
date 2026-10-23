@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [60, 75, 85],
   },
-  serverExternalPackages: ["@prisma/client", "bcryptjs", "sanitize-html", "cloudinary"],
+  serverExternalPackages: ["@prisma/client", "bcryptjs", "cloudinary"],
   experimental: {
     serverActions: { bodySizeLimit: "2mb" },
   },

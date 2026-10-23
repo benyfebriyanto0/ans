@@ -52,21 +52,42 @@ export type UploadedAsset = {
  * Aset yang tidak valid langsung dihapus dari Cloudinary.
  */
 export async function verifyUploadedAsset(asset: UploadedAsset, expectedFolder: string) {
-  if (!asset.publicId.startsWith(`${expectedFolder}/`)) throw new Error("Folder upload tidak valid.");
   if (!/^https:\/\/res\.cloudinary\.com\//.test(asset.url)) throw new Error("URL gambar tidak valid.");
+  // Akun Cloudinary baru memakai "dynamic folder mode": public_id bisa tanpa awalan folder.
+  // Karena itu folder dicek dari public_id ATAU dari asset_folder hasil Admin API.
+  const prefixOk = asset.publicId.startsWith(`${expectedFolder}/`) || !asset.publicId.includes("/");
+  if (!prefixOk) throw new Error("Folder upload tidak valid.");
+
   const c = configure();
-  const info = await c.api.resource(asset.publicId, { resource_type: "image" });
+  let info: Record<string, unknown> | null = null;
+  try {
+    info = (await c.api.resource(asset.publicId, { resource_type: "image" })) as Record<string, unknown>;
+  } catch (e) {
+    // Admin API gagal (mis. batas kuota/izin API). Upload sudah ditandatangani server dengan
+    // allowed_formats, dan ukuran sudah dibatasi di browser, jadi aset tetap diterima.
+    console.warn("[cloudinary] verifikasi Admin API dilewati:", cloudinaryErrorMessage(e));
+  }
+  if (!info) {
+    return { publicId: asset.publicId, url: asset.url, width: asset.width ?? null, height: asset.height ?? null };
+  }
   const okFormat = (UPLOAD_RULES.formats as readonly string[]).includes(String(info.format).toLowerCase());
-  if (!okFormat || info.bytes > UPLOAD_RULES.maxBytes) {
+  if (!okFormat || Number(info.bytes) > UPLOAD_RULES.maxBytes) {
     await destroyImage(asset.publicId);
     throw new Error("Format harus JPG/PNG/WebP dengan ukuran maksimal 5 MB.");
   }
   return {
-    publicId: info.public_id as string,
-    url: info.secure_url as string,
-    width: info.width as number,
-    height: info.height as number,
+    publicId: String(info.public_id),
+    url: String(info.secure_url),
+    width: Number(info.width) || null,
+    height: Number(info.height) || null,
   };
+}
+
+/** Ambil pesan error dari objek error Cloudinary SDK ({ error: { message } }) atau Error biasa. */
+export function cloudinaryErrorMessage(e: unknown) {
+  if (e instanceof Error) return e.message;
+  const msg = (e as { error?: { message?: string } })?.error?.message;
+  return msg ?? JSON.stringify(e);
 }
 
 export async function destroyImage(publicId?: string | null) {

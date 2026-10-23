@@ -19,7 +19,10 @@ export function fromUnknownError(e: unknown, fallback = "Terjadi kesalahan. Sila
   if (code === "P2002") return { ok: false, error: "Data dengan nilai unik tersebut sudah ada (mis. slug/email)." };
   if (code === "P2025") return { ok: false, error: "Data tidak ditemukan atau sudah dihapus." };
   console.error(e);
-  return { ok: false, error: e instanceof Error && e.message.length < 200 ? e.message : fallback };
+  // Error dari SDK pihak ketiga (mis. Cloudinary) sering berbentuk { error: { message } }
+  const message =
+    e instanceof Error ? e.message : ((e as { error?: { message?: string } })?.error?.message ?? undefined);
+  return { ok: false, error: message && message.length < 200 ? message : fallback };
 }
 
 export const idSchema = z.coerce.number().int().positive();

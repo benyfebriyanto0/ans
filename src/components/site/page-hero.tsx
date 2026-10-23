@@ -15,22 +15,23 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-navy-950 pt-28 pb-16 text-white sm:pt-32 sm:pb-20">
-      <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
-      <div className="glow-accent absolute -top-24 -right-24 size-96" aria-hidden />
-      <div className="glow-primary absolute -bottom-32 -left-20 size-96" aria-hidden />
+    <section className="bg-hero-light relative overflow-hidden border-b border-border/60 pt-28 pb-14 text-foreground sm:pt-32 sm:pb-16">
+      <div
+        className="bg-grid-light absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        aria-hidden
+      />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1 text-sm text-white/60">
+          <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
             {crumbs.map((c, i) => (
               <li key={i} className="flex items-center gap-1">
                 {i > 0 && <ChevronRight className="size-3.5" aria-hidden />}
                 {c.href ? (
-                  <Link href={c.href} className="hover:text-accent">
+                  <Link href={c.href} className="hover:text-primary">
                     {c.label}
                   </Link>
                 ) : (
-                  <span aria-current="page" className="text-white/90">
+                  <span aria-current="page" className="font-medium text-foreground">
                     {c.label}
                   </span>
                 )}
@@ -38,10 +39,12 @@ export function PageHero({
             ))}
           </ol>
         </nav>
-        {eyebrow && <p className="mt-6 text-xs font-bold tracking-[0.18em] text-accent uppercase">{eyebrow}</p>}
-        <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-balance sm:text-5xl">{title}</h1>
+        {eyebrow && <p className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">{eyebrow}</p>}
+        <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-balance text-navy-950 sm:text-5xl">
+          {title}
+        </h1>
         {description && (
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-pretty text-white/70">{description}</p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground">{description}</p>
         )}
         {children}
       </div>

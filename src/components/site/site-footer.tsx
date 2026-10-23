@@ -14,24 +14,27 @@ export function SiteFooter({
 }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-navy-950 text-white/75">
-      <div className="bg-grid absolute inset-0 opacity-40" aria-hidden />
+    <footer className="relative overflow-hidden border-t border-border bg-sky-soft text-muted-foreground">
+      <div
+        className="bg-grid-light absolute inset-0 [mask-image:linear-gradient(to_top,black,transparent)]"
+        aria-hidden
+      />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-4">
-          <BrandLogo name={settings.companyName} logoUrl={settings.logoUrl} inverted />
+          <BrandLogo name={settings.companyName} logoUrl={settings.logoUrl} />
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{settings.shortProfile}</p>
           {(settings.nib || settings.npwp) && (
-            <dl className="mt-4 grid gap-1 text-xs text-white/55">
+            <dl className="mt-4 grid gap-1 text-xs text-muted-foreground">
               {settings.nib && (
                 <div>
                   <dt className="inline">NIB: </dt>
-                  <dd className="inline font-medium text-white/75">{settings.nib}</dd>
+                  <dd className="inline font-medium text-foreground">{settings.nib}</dd>
                 </div>
               )}
               {settings.npwp && (
                 <div>
                   <dt className="inline">NPWP: </dt>
-                  <dd className="inline font-medium text-white/75">{settings.npwp}</dd>
+                  <dd className="inline font-medium text-foreground">{settings.npwp}</dd>
                 </div>
               )}
             </dl>
@@ -39,25 +42,25 @@ export function SiteFooter({
         </div>
 
         <div className="lg:col-span-2">
-          <h2 className="text-sm font-bold tracking-wide text-white uppercase">Perusahaan</h2>
+          <h2 className="text-sm font-bold tracking-wide text-navy-950 uppercase">Perusahaan</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
-              <Link prefetch={false} className="hover:text-accent" href="/tentang">
+              <Link prefetch={false} className="hover:text-primary" href="/tentang">
                 Tentang Kami
               </Link>
             </li>
             <li>
-              <Link prefetch={false} className="hover:text-accent" href="/bidang-usaha">
+              <Link prefetch={false} className="hover:text-primary" href="/bidang-usaha">
                 Bidang Usaha
               </Link>
             </li>
             <li>
-              <Link prefetch={false} className="hover:text-accent" href="/armada">
+              <Link prefetch={false} className="hover:text-primary" href="/armada">
                 Armada Rental
               </Link>
             </li>
             <li>
-              <Link prefetch={false} className="hover:text-accent" href="/kontak">
+              <Link prefetch={false} className="hover:text-primary" href="/kontak">
                 Kontak
               </Link>
             </li>
@@ -65,11 +68,11 @@ export function SiteFooter({
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-sm font-bold tracking-wide text-white uppercase">Bidang Usaha</h2>
+          <h2 className="text-sm font-bold tracking-wide text-navy-950 uppercase">Bidang Usaha</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
             {units.map((u) => (
               <li key={u.slug}>
-                <Link prefetch={false} className="hover:text-accent" href={`/bidang-usaha/${u.slug}`}>
+                <Link prefetch={false} className="hover:text-primary" href={`/bidang-usaha/${u.slug}`}>
                   {u.menuName}
                 </Link>
               </li>
@@ -78,25 +81,25 @@ export function SiteFooter({
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-sm font-bold tracking-wide text-white uppercase">Kontak</h2>
+          <h2 className="text-sm font-bold tracking-wide text-navy-950 uppercase">Kontak</h2>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex gap-3">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-accent" />
+              <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
               {settings.address}
             </li>
             {settings.phone && (
               <li className="flex gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-accent" />
-                <a className="hover:text-accent" href={`tel:${settings.phone}`}>
+                <Phone className="mt-0.5 size-4 shrink-0 text-primary" />
+                <a className="hover:text-primary" href={`tel:${settings.phone}`}>
                   {settings.phone}
                 </a>
               </li>
             )}
             {settings.whatsapp && (
               <li className="flex gap-3">
-                <WhatsappIcon className="mt-0.5 size-4 shrink-0 text-accent" />
+                <WhatsappIcon className="mt-0.5 size-4 shrink-0 text-primary" />
                 <a
-                  className="hover:text-accent"
+                  className="hover:text-primary"
                   href={waLink(settings.whatsapp, settings.waDefaultMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -107,23 +110,23 @@ export function SiteFooter({
             )}
             {settings.email && (
               <li className="flex gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-accent" />
-                <a className="break-all hover:text-accent" href={`mailto:${settings.email}`}>
+                <Mail className="mt-0.5 size-4 shrink-0 text-primary" />
+                <a className="break-all hover:text-primary" href={`mailto:${settings.email}`}>
                   {settings.email}
                 </a>
               </li>
             )}
             {settings.businessHours && (
               <li className="flex gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0 text-accent" />
+                <Clock className="mt-0.5 size-4 shrink-0 text-primary" />
                 {settings.businessHours}
               </li>
             )}
           </ul>
         </div>
       </div>
-      <div className="relative border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <div className="relative border-t border-border">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>
             © {year} {settings.companyName}. Seluruh hak cipta dilindungi.
           </p>

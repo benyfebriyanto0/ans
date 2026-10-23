@@ -29,8 +29,8 @@ export function SiteHeader({
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const overHero = pathname === "/";
-  const solid = scrolled || !overHero || open;
+  // Tema cerah: teks & logo selalu versi gelap; latar header makin solid saat di-scroll.
+  const solid = true;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -59,7 +59,9 @@ export function SiteHeader({
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-        solid ? "border-b border-border/60 bg-white/90 shadow-sm backdrop-blur-lg" : "bg-transparent",
+        scrolled || open
+          ? "border-b border-border/60 bg-white/90 shadow-sm backdrop-blur-lg"
+          : "border-b border-transparent bg-white/60 backdrop-blur-md",
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">

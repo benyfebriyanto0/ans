@@ -74,7 +74,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
               <WhatsappIcon className="size-5" /> Tanya via WhatsApp
             </a>
           </Button>
-          <Button asChild variant="glass" size="lg">
+          <Button asChild variant="outline" size="lg" className="border-primary/20 bg-white text-primary">
             <a href="#galeri">Lihat Galeri</a>
           </Button>
         </div>
@@ -135,7 +135,7 @@ export default async function BusinessUnitDetailPage({ params }: PageProps<"/bid
 
         <aside className="space-y-6 lg:col-span-4">
           <div className="sticky top-24 space-y-6">
-            <div className="overflow-hidden rounded-2xl bg-navy-950 p-6 text-white shadow-xl">
+            <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-navy-900 p-6 text-white shadow-xl shadow-primary/20">
               <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground">
                 <UnitIcon name={unit.icon} className="size-6" />
               </span>

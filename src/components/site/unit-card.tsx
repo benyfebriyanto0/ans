@@ -21,7 +21,7 @@ export function UnitCard({ unit, index = 0 }: { unit: UnitCardData; index?: numb
       href={`/bidang-usaha/${unit.slug}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-primary">
+      <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
         {unit.coverImageUrl ? (
           <CldImage
             src={unit.coverImageUrl}
@@ -31,23 +31,29 @@ export function UnitCard({ unit, index = 0 }: { unit: UnitCardData; index?: numb
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-navy-900 to-navy-950">
-            <div className="bg-grid absolute inset-0" />
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-soft via-white to-secondary">
+            <div className="bg-grid-light absolute inset-0" />
             <UnitIcon
               name={unit.icon}
-              className="absolute -right-6 -bottom-6 size-40 text-white/[0.07] transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6"
+              className="absolute -right-6 -bottom-6 size-40 text-primary/[0.07] transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6"
             />
             <UnitIcon
               name={unit.icon}
-              className="absolute top-1/2 left-1/2 size-14 -translate-x-1/2 -translate-y-1/2 text-accent"
+              className="absolute top-1/2 left-1/2 size-14 -translate-x-1/2 -translate-y-1/2 text-primary"
             />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
+        {unit.coverImageUrl && (
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
+        )}
         <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-primary backdrop-blur">
           KBLI {unit.kbliCode}
         </span>
-        <span className="absolute top-3 right-3 font-mono text-xs font-bold text-white/70">0{index + 1}</span>
+        <span
+          className={`absolute top-3 right-3 font-mono text-xs font-bold ${unit.coverImageUrl ? "text-white/80" : "text-primary/50"}`}
+        >
+          0{index + 1}
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="relative z-10 -mt-11 mb-3 grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg ring-4 ring-card">

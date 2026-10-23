@@ -67,29 +67,29 @@ export default async function AboutPage() {
       </section>
 
       {/* Visi & Misi */}
-      <section className="relative overflow-hidden bg-navy-950 py-20 text-white sm:py-28">
-        <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
+      <section className="relative overflow-hidden bg-sky-soft py-20 sm:py-28">
+        <div className="bg-grid-light absolute inset-0" aria-hidden />
         <div className="glow-accent absolute top-0 right-0 size-[28rem]" aria-hidden />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <Reveal>
             <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground">
               <Target className="size-6" />
             </span>
-            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-accent uppercase">Visi</h2>
+            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Visi</h2>
             <p className="mt-4 text-2xl leading-relaxed font-bold text-balance sm:text-3xl">“{s.vision}”</p>
           </Reveal>
           <Reveal delay={120}>
-            <span className="grid size-12 place-items-center rounded-xl bg-white/10 text-accent">
+            <span className="grid size-12 place-items-center rounded-xl bg-primary text-white">
               <Rocket className="size-6" />
             </span>
-            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-accent uppercase">Misi</h2>
+            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Misi</h2>
             <ol aria-label="Daftar misi" className="mt-4 space-y-4">
               {s.missions.map((m, i) => (
                 <li key={i} className="flex gap-4">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white/10 font-mono text-sm font-bold text-accent">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white font-mono text-sm font-bold text-primary shadow-sm">
                     {i + 1}
                   </span>
-                  <span className="pt-1 leading-relaxed text-white/80">{m}</span>
+                  <span className="pt-1 leading-relaxed text-foreground/80">{m}</span>
                 </li>
               ))}
             </ol>
@@ -109,7 +109,7 @@ export default async function AboutPage() {
               className="rounded-2xl border bg-card p-6 text-center transition hover:-translate-y-1 hover:shadow-lg"
             >
               <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent/15 text-accent-foreground">
-                <CheckCircle2 className="size-6 text-accent" />
+                <CheckCircle2 className="size-6 text-gold-600" />
               </span>
               <h3 className="mt-4 font-bold">{v.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>

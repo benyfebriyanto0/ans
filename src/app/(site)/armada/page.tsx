@@ -24,7 +24,7 @@ export default async function FleetPage() {
   return (
     <>
       <PageHero
-        eyebrow="Rental Mobil · KBLI 77100"
+        eyebrow="Rental Mobil"
         title="Armada Rental Mobil"
         description="Kendaraan bersih, terawat, dan siap pakai — tersedia sewa harian, mingguan, hingga bulanan, lepas kunci atau dengan pengemudi."
         crumbs={[

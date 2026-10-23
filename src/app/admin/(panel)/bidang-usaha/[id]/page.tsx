@@ -18,6 +18,8 @@ export default async function EditUnitPage({ params }: PageProps<"/admin/bidang-
     <>
       <AdminPageHeader
         title={`Ubah: ${u.menuName}`}
+        backHref="/admin/bidang-usaha"
+        backLabel="Kembali ke Bidang Usaha"
         actions={
           <Button asChild variant="outline">
             <Link href={`/admin/galeri?unit=${u.id}`}>

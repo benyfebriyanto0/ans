@@ -11,6 +11,8 @@ export default async function NewVehiclePage() {
     <>
       <AdminPageHeader
         title="Tambah Armada"
+        backHref="/admin/armada"
+        backLabel="Kembali ke Armada"
         description="Simpan data terlebih dahulu, lalu unggah foto unit di halaman berikutnya."
       />
       <VehicleForm

@@ -9,7 +9,7 @@ export default async function NewUnitPage() {
   const max = await db.businessUnit.aggregate({ _max: { sortOrder: true } });
   return (
     <>
-      <AdminPageHeader title="Tambah Bidang Usaha" />
+      <AdminPageHeader title="Tambah Bidang Usaha" backHref="/admin/bidang-usaha" backLabel="Kembali ke Bidang Usaha" />
       <BusinessUnitForm
         id={null}
         coverFolder={`${ROOT_FOLDER}/covers`}

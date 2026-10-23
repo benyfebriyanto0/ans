@@ -29,7 +29,7 @@ export default async function EditVehiclePage({ params }: PageProps<"/admin/arma
   if (!v) notFound();
   return (
     <>
-      <AdminPageHeader title={`Ubah: ${v.name}`} />
+      <AdminPageHeader title={`Ubah: ${v.name}`} backHref="/admin/armada" backLabel="Kembali ke Armada" />
       <VehicleForm
         id={v.id}
         coverFolder={`${ROOT_FOLDER}/covers`}

@@ -46,9 +46,6 @@ export function UnitCard({ unit, index = 0 }: { unit: UnitCardData; index?: numb
         {unit.coverImageUrl && (
           <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
         )}
-        <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-primary backdrop-blur">
-          KBLI {unit.kbliCode}
-        </span>
         <span
           className={`absolute top-3 right-3 font-mono text-xs font-bold ${unit.coverImageUrl ? "text-white/80" : "text-primary/50"}`}
         >

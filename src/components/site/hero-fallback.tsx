@@ -55,7 +55,7 @@ export function HeroFallback({
                   <UnitIcon name={u.icon} className="size-6" />
                 </span>
                 <p className="mt-4 font-bold text-navy-950">{u.menuName}</p>
-                <p className="mt-1 text-xs text-muted-foreground">KBLI {u.kbliCode}</p>
+                <p className="mt-1 text-xs text-muted-foreground">Lihat layanan →</p>
               </Link>
             </div>
           ))}

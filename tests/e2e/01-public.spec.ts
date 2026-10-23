@@ -42,14 +42,24 @@ test.describe("Halaman publik", () => {
     await expect(page.getByText("Perum Semesta Blok L 13").first()).toBeVisible();
   });
 
-  test("detail bidang usaha: KBLI, layanan, WA dengan pesan otomatis", async ({ page }) => {
+  test("detail bidang usaha: landing, tanpa KBLI, layanan, form, FAQ, WA otomatis", async ({ page }) => {
     await page.goto("/bidang-usaha/perdagangan-oli");
-    await expect(page.getByText("46610").first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Daftar layanan" })).toBeVisible();
-    const wa = page.getByRole("link", { name: /Tanya via WhatsApp/ });
+    await expect(page.getByText(/KBLI/)).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Pelumas berkualitas");
+    await expect(page.getByRole("heading", { name: "Pilihan pelumas & bahan bakar" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Tiga langkah. Langsung beres." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Ada yang ingin ditanyakan?" })).toBeVisible();
+    await expect(page.getByLabel("Nama / perusahaan")).toBeVisible();
+    const wa = page.getByRole("link", { name: /Tanya via WhatsApp/ }).first();
     const href = await wa.getAttribute("href");
     expect(href).toContain("https://wa.me/628117913336?text=");
     expect(decodeURIComponent(href!)).toMatch(/oli|pelumas/i);
+  });
+
+  test("detail rental mobil: kartu armada dengan tombol tanya harga", async ({ page }) => {
+    await page.goto("/bidang-usaha/rental-mobil");
+    await expect(page.getByRole("heading", { name: "Mau pergi naik apa?" })).toBeVisible();
+    await expect(page.getByText(/KBLI/)).toHaveCount(0);
   });
 
   test("kontak: alamat, telepon, email, Google Maps & formulir", async ({ page }) => {

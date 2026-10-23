@@ -5,6 +5,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { isRateLimited, rateLimit, resetRateLimit } from "@/lib/rate-limit";
 import { hashIp, ipFromHeaders } from "@/lib/request";
+import { authConfig } from "@/auth.config";
 
 class TooManyAttempts extends CredentialsSignin {
   code = "too_many_attempts";
@@ -19,7 +20,7 @@ const LOGIN_LIMIT = 5; // maks 5 kali gagal
 const LOGIN_WINDOW = 60; // per 60 detik
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  trustHost: true,
+  ...authConfig,
   logger: {
     // Percobaan login gagal adalah hal wajar; jangan memenuhi log server dengan stack trace.
     error(error) {
@@ -27,8 +28,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       console.error("[auth]", error);
     },
   },
-  session: { strategy: "jwt", maxAge: 60 * 60 * 8 }, // 8 jam
-  pages: { signIn: "/admin/login" },
   providers: [
     Credentials({
       credentials: { email: {}, password: {} },
@@ -58,19 +57,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user?.id) token.uid = user.id;
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user && token.uid) session.user.id = String(token.uid);
-      return session;
-    },
-    authorized({ auth, request }) {
-      const { pathname } = request.nextUrl;
-      if (pathname === "/admin/login") return true;
-      return Boolean(auth?.user);
-    },
-  },
 });

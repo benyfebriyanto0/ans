@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/auth.config";
+
+// Hanya konfigurasi edge-safe (tanpa database) — verifikasi JWT sesi saja.
+const { auth } = NextAuth(authConfig);
 
 /**
  * Proxy (pengganti middleware di Next.js 16): mengunci /admin dan /api/admin.

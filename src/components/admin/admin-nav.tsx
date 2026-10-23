@@ -89,7 +89,7 @@ export function AdminNav({ unread, user }: { unread: number; user: { name: strin
       {/* Topbar mobile */}
       <div className="sticky top-0 z-30 flex h-14 items-center justify-between border-b bg-navy-950 px-4 text-white lg:hidden">
         <Link href="/admin" className="flex items-center gap-2 font-bold">
-          <BrandMark className="size-8" /> Admin
+          <BrandMark inverted className="h-7" /> Admin
         </Link>
         <button
           onClick={() => setOpen(true)}
@@ -114,7 +114,7 @@ export function AdminNav({ unread, user }: { unread: number; user: { name: strin
         >
           <div className="flex h-14 items-center justify-between px-4 text-white">
             <span className="flex items-center gap-2 font-bold">
-              <BrandMark className="size-8" /> Arsindo Admin
+              <BrandMark inverted className="h-7" /> Arsindo Admin
             </span>
             <button
               onClick={() => setOpen(false)}
@@ -130,7 +130,7 @@ export function AdminNav({ unread, user }: { unread: number; user: { name: strin
       {/* Sidebar desktop */}
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-navy-950 lg:flex">
         <Link href="/admin" className="flex h-16 items-center gap-2.5 border-b border-white/10 px-5 text-white">
-          <BrandMark className="size-9" />
+          <BrandMark inverted className="h-8" />
           <span className="leading-tight">
             <span className="block text-sm font-extrabold">Arsindo Niaga</span>
             <span className="block text-[11px] text-white/50">Panel Admin</span>

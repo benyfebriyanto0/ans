@@ -24,7 +24,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       addressRegion: "Lampung",
       addressCountry: "ID",
     },
-    logo: settings.logoUrl || siteUrl("/icon.svg"),
+    logo: settings.logoUrl || siteUrl("/logo/logo-full.png"),
     openingHours: "Mo-Sa 08:00-17:00",
   };
 

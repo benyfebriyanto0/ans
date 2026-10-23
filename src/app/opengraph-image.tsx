@@ -1,10 +1,14 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "CV Arsindo Niaga Sejahtera — Bandar Lampung";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+export default async function OgImage() {
+  const png = await readFile(join(process.cwd(), "public/logo/logo-mark-white.png"));
+  const mark = `data:image/png;base64,${png.toString("base64")}`;
   const units = ["Perdagangan Suku Cadang", "Jasa Reparasi Mesin", "Perdagangan Oli", "Rental Mobil"];
   return new ImageResponse(
     <div
@@ -19,26 +23,13 @@ export default function OgImage() {
         padding: 72,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <div
-          style={{
-            width: 72,
-            height: 72,
-            borderRadius: 18,
-            background: "#f5a524",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 44,
-            fontWeight: 800,
-            color: "#12305c",
-          }}
-        >
-          A
-        </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={mark} width={163} height={88} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 22, letterSpacing: 6, color: "#f5a524" }}>CV</div>
-          <div style={{ fontSize: 36, fontWeight: 800 }}>Arsindo Niaga Sejahtera</div>
+          <div style={{ fontSize: 20, letterSpacing: 8, color: "#f5a524" }}>CV</div>
+          <div style={{ fontSize: 40, fontWeight: 800 }}>ARSINDO NIAGA</div>
+          <div style={{ fontSize: 18, letterSpacing: 12, color: "rgba(255,255,255,.75)" }}>SEJAHTERA</div>
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>

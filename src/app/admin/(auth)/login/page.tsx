@@ -14,7 +14,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/admin/logi
       <div className="glow-accent absolute -top-32 -right-32 size-96" aria-hidden />
       <div className="relative w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center text-white">
-          <BrandMark className="size-14" />
+          <BrandMark inverted className="h-14" />
           <h1 className="mt-4 text-2xl font-extrabold">Panel Admin</h1>
           <p className="mt-1 text-sm text-white/60">CV Arsindo Niaga Sejahtera</p>
         </div>

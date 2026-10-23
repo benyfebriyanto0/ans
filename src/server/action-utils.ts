@@ -22,7 +22,15 @@ export function fromUnknownError(e: unknown, fallback = "Terjadi kesalahan. Sila
   // Error dari SDK pihak ketiga (mis. Cloudinary) sering berbentuk { error: { message } }
   const message =
     e instanceof Error ? e.message : ((e as { error?: { message?: string } })?.error?.message ?? undefined);
-  return { ok: false, error: message && message.length < 200 ? message : fallback };
+  if (!message) return { ok: false, error: fallback };
+  // Pesan Prisma bisa sangat panjang: ambil baris terakhir yang berisi penjelasan, potong maks 200 karakter.
+  const line =
+    message
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .pop() ?? message;
+  return { ok: false, error: line.length > 200 ? `${line.slice(0, 197)}…` : line };
 }
 
 export const idSchema = z.coerce.number().int().positive();

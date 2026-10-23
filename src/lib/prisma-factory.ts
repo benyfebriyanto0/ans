@@ -32,6 +32,9 @@ export function createPrismaClient() {
 
   return new PrismaClient({
     adapter,
+    // Server Netlify dan TiDB berada di region berbeda (latensi ±200 ms per query),
+    // jadi batas bawaan transaksi (5 detik) terlalu pendek untuk simpan banyak baris sekaligus.
+    transactionOptions: { maxWait: 15_000, timeout: 30_000 },
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
   });
 }

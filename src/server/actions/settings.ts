@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { Prisma } from "@/generated/prisma/client";
 import { requireAdmin } from "@/lib/auth-guard";
 import { revalidatePublic } from "@/lib/revalidate";
 import { SETTING_KEYS, type SiteSettings } from "@/lib/settings";
@@ -27,9 +28,12 @@ export async function saveSettings(input: SettingsInput): Promise<ActionResult> 
       key: SETTING_KEYS[k as keyof SiteSettings],
       value: Array.isArray(v) ? JSON.stringify(v) : String(v ?? ""),
     }));
-    await db.$transaction(
-      entries.map((e) => db.setting.upsert({ where: { key: e.key }, create: e, update: { value: e.value } })),
-    );
+    // Satu query (INSERT ... ON DUPLICATE KEY UPDATE) agar cepat walau database jauh dari server.
+    const now = new Date();
+    await db.$executeRaw`
+      INSERT INTO settings (\`key\`, \`value\`, created_at, updated_at)
+      VALUES ${Prisma.join(entries.map((e) => Prisma.sql`(${e.key}, ${e.value}, ${now}, ${now})`))}
+      ON DUPLICATE KEY UPDATE \`value\` = VALUES(\`value\`), updated_at = VALUES(updated_at)`;
     if (oldLogo?.value && oldLogo.value !== data.logoPublicId) await destroyImage(oldLogo.value);
     revalidatePublic();
     return { ok: true, message: "Profil perusahaan tersimpan." };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArcMark } from "@/components/site/arc-mark";
 import Link from "next/link";
 import { LoginForm } from "@/components/admin/login-form";
 import { BrandMark } from "@/components/site/brand-logo";
@@ -10,7 +11,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/admin/logi
   const cb = typeof sp.callbackUrl === "string" && sp.callbackUrl.startsWith("/admin") ? sp.callbackUrl : "/admin";
   return (
     <main className="bg-hero-light relative grid min-h-dvh place-items-center overflow-hidden px-4 py-12">
-      <div className="bg-grid-light absolute inset-0" aria-hidden />
+      <ArcMark className="absolute -right-32 bottom-0 w-[40rem] opacity-25" />
       <div className="relative w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center text-navy-950">
           <BrandMark className="h-14" />

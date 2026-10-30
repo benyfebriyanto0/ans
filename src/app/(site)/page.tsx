@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Clock3, MapPin, Phone, ShieldCheck, Target } from "lucide-react";
+import { BadgeCheck, Clock3, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroSlider } from "@/components/site/hero-slider";
 import { HeroFallback } from "@/components/site/hero-fallback";
@@ -9,9 +9,10 @@ import { UnitCard } from "@/components/site/unit-card";
 import { VehicleCard } from "@/components/site/vehicle-card";
 import { Reveal } from "@/components/site/reveal";
 import { WhatsappIcon } from "@/components/icons";
+import { ArcMark } from "@/components/site/arc-mark";
 import { getSettings } from "@/lib/settings";
 import { getActiveBusinessUnits, getActiveSliders, getActiveVehicles } from "@/lib/queries";
-import { waLink } from "@/lib/utils";
+import { parseJsonArray, waLink } from "@/lib/utils";
 
 export const revalidate = 3600;
 
@@ -48,7 +49,7 @@ export default async function HomePage() {
       text: settings.nib ? `NIB ${settings.nib}` : "Badan usaha resmi berbentuk CV",
     },
     { icon: MapPin, title: "Bandar Lampung", text: "Melayani Lampung & sekitarnya" },
-    { icon: Clock3, title: "Respons Cepat", text: settings.businessHours || "Konsultasi via WhatsApp" },
+    { icon: Clock3, title: "Jam Operasional", text: settings.businessHours || "Konsultasi via WhatsApp" },
   ];
 
   return (
@@ -56,14 +57,29 @@ export default async function HomePage() {
       {sliders.length ? (
         <HeroSlider slides={sliders} />
       ) : (
-        <HeroFallback title={settings.tagline || settings.companyName} subtitle={settings.shortProfile} units={units} />
+        <HeroFallback
+          title={settings.tagline || settings.companyName}
+          subtitle={settings.shortProfile}
+          units={units.map((u) => ({
+            slug: u.slug,
+            menuName: u.menuName,
+            officialName: u.officialName,
+            summary: u.summary ?? "",
+            icon: u.icon,
+            services: parseJsonArray<string>(u.services),
+            waHref: waLink(
+              settings.whatsapp,
+              u.waMessage || `Halo ${settings.companyName}, saya ingin menanyakan layanan ${u.menuName}.`,
+            ),
+          }))}
+        />
       )}
 
       {/* Highlights */}
       <section aria-label="Keunggulan" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border shadow-xl shadow-primary/5 lg:grid-cols-4">
-          {highlights.map((h, i) => (
-            <Reveal key={h.title} delay={i * 80} className="flex items-start gap-3 bg-card p-5 sm:p-6">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border bg-border lg:grid-cols-4">
+          {highlights.map((h) => (
+            <div key={h.title} className="flex items-start gap-3 bg-card p-5 sm:p-6">
               <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/8 text-primary">
                 <h.icon className="size-5" />
               </span>
@@ -71,7 +87,7 @@ export default async function HomePage() {
                 <p className="font-bold text-foreground">{h.title}</p>
                 <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground sm:text-sm">{h.text}</p>
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>
@@ -82,15 +98,13 @@ export default async function HomePage() {
           <SectionHeading
             align="left"
             eyebrow="Tentang Kami"
-            title={`Mitra andal untuk kebutuhan industri & mobilitas Anda`}
+            title="Satu kontak untuk suku cadang, servis mesin, pelumas, dan kendaraan"
           />
           <p className="mt-6 leading-relaxed text-muted-foreground">{settings.shortProfile}</p>
           {settings.commitment && <p className="mt-4 leading-relaxed text-muted-foreground">{settings.commitment}</p>}
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg">
-              <Link href="/tentang">
-                Profil Lengkap <ArrowRight />
-              </Link>
+              <Link href="/tentang">Profil Lengkap</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/kontak">Hubungi Kami</Link>
@@ -98,14 +112,10 @@ export default async function HomePage() {
           </div>
         </Reveal>
         <Reveal delay={150} className="relative">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 p-8 text-white shadow-2xl shadow-primary/20 sm:p-10">
-            <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
-            <div className="glow-accent absolute -top-16 -right-16 size-56" aria-hidden />
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 p-8 text-white sm:p-10">
+            <ArcMark className="absolute -top-2 -right-16 w-80 opacity-90" />
             <div className="relative">
-              <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground">
-                <Target className="size-6" />
-              </span>
-              <p className="mt-6 text-xs font-bold tracking-[0.18em] text-accent uppercase">Visi</p>
+              <p className="text-sm font-bold text-accent">Visi kami</p>
               <p className="mt-3 text-xl leading-relaxed font-semibold text-balance sm:text-2xl">“{settings.vision}”</p>
               {settings.values.length > 0 && (
                 <ul className="mt-8 flex flex-wrap gap-2">
@@ -125,12 +135,13 @@ export default async function HomePage() {
       </section>
 
       {/* Bidang usaha */}
-      <section className="relative bg-muted/50 py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-navy-950 py-20 sm:py-28">
+        <ArcMark className="absolute -top-6 -left-40 w-[46rem] opacity-25" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Bidang Usaha"
-            title="Empat layanan, satu mitra terpercaya"
-            description="Dari pengadaan suku cadang hingga penyewaan kendaraan, kami siap mendukung kelancaran operasional bisnis Anda."
+            inverted
+            title="Jelajahi tiap bidang usaha"
+            description="Setiap layanan punya halaman sendiri berisi daftar pekerjaan, alur pemesanan, dan kontak WhatsApp langsung ke admin."
           />
           <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {units.map((u, i) => (
@@ -142,27 +153,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Nilai perusahaan */}
-      {settings.values.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-          <SectionHeading eyebrow="Mengapa Memilih Kami" title="Nilai yang kami pegang dalam setiap pekerjaan" />
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {settings.values.map((v, i) => (
-              <Reveal
-                as="li"
-                key={v.title}
-                delay={i * 70}
-                className="group rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg"
-              >
-                <span className="font-mono text-sm font-bold text-gold-600">0{i + 1}</span>
-                <h3 className="mt-3 text-lg font-bold">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
-              </Reveal>
-            ))}
-          </ul>
-        </section>
-      )}
-
       {/* Armada */}
       {vehicles.length > 0 && (
         <section className="bg-muted/50 py-20 sm:py-28">
@@ -170,9 +160,7 @@ export default async function HomePage() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <SectionHeading align="left" eyebrow="Rental Mobil" title="Armada siap mendukung perjalanan Anda" />
               <Button asChild variant="outline">
-                <Link href="/armada">
-                  Semua Armada <ArrowRight />
-                </Link>
+                <Link href="/armada">Semua Armada</Link>
               </Button>
             </div>
             <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -188,16 +176,15 @@ export default async function HomePage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 px-6 py-14 text-center text-white shadow-2xl sm:px-12 sm:py-16">
-          <div className="bg-grid absolute inset-0 opacity-50" aria-hidden />
-          <div className="glow-accent absolute -bottom-24 left-1/2 size-96 -translate-x-1/2" aria-hidden />
+        <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-navy-900 px-6 py-14 text-center text-white sm:px-12 sm:py-16">
+          <ArcMark className="absolute -right-20 -bottom-6 w-[30rem] opacity-80" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
-              Siap bekerja sama dengan kami?
+              Butuh part, servis mesin, pelumas, atau mobil minggu ini?
             </h2>
             <p className="mt-4 text-white/75">
-              Konsultasikan kebutuhan suku cadang, jasa reparasi, pelumas, atau sewa kendaraan Anda. Tim kami siap
-              membantu.
+              Kirim kebutuhan Anda lewat WhatsApp. Admin kami membalas pada jam kerja dengan ketersediaan dan penawaran
+              harga.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild variant="accent" size="lg">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { ArcMark } from "./arc-mark";
 
 export function PageHero({
   title,
@@ -15,10 +16,7 @@ export function PageHero({
 }) {
   return (
     <section className="bg-hero-light relative overflow-hidden border-b border-border/60 pt-28 pb-14 text-foreground sm:pt-32 sm:pb-16">
-      <div
-        className="bg-grid-light absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        aria-hidden
-      />
+      <ArcMark className="absolute -right-24 -bottom-6 w-[34rem] opacity-30 sm:w-[44rem]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">

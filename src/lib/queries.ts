@@ -20,6 +20,7 @@ export const getActiveBusinessUnits = cache(() =>
       icon: true,
       coverImageUrl: true,
       waMessage: true,
+      services: true,
       _count: { select: { photos: { where: { isActive: true } } } },
     },
   }),

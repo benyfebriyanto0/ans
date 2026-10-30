@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { WhatsappIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -82,7 +82,7 @@ export function ConsultForm({
       </div>
       <div className="sm:col-span-2">
         <Button type="submit" variant="accent" size="lg" className="w-full sm:w-auto">
-          Lanjut ke WhatsApp <ArrowUpRight />
+          <WhatsappIcon className="size-5" /> Lanjut ke WhatsApp
         </Button>
         <p className="mt-3 text-xs text-muted-foreground">
           Formulir ini hanya menyiapkan pesan WhatsApp dan belum merupakan konfirmasi pesanan. Harga dan ketersediaan

@@ -15,10 +15,6 @@ export function SiteFooter({
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden border-t border-border bg-sky-soft text-muted-foreground">
-      <div
-        className="bg-grid-light absolute inset-0 [mask-image:linear-gradient(to_top,black,transparent)]"
-        aria-hidden
-      />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:px-8">
         <div className="lg:col-span-4">
           <BrandLogo name={settings.companyName} logoUrl={settings.logoUrl} />

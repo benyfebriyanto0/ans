@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cloudinaryLoader } from "@/lib/cloudinary-url";
 import { cn } from "@/lib/utils";
@@ -86,12 +86,10 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                         <Button asChild variant="accent" size="lg">
                           {external ? (
                             <a href={s.buttonLink} target="_blank" rel="noopener noreferrer">
-                              {s.buttonText} <ArrowRight />
+                              {s.buttonText}
                             </a>
                           ) : (
-                            <Link href={s.buttonLink}>
-                              {s.buttonText} <ArrowRight />
-                            </Link>
+                            <Link href={s.buttonLink}>{s.buttonText}</Link>
                           )}
                         </Button>
                         <Button asChild variant="glass" size="lg">

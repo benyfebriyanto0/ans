@@ -34,7 +34,7 @@ test.describe("Autentikasi & keamanan", () => {
   test("login berhasil & logout", async ({ page }) => {
     await db.rateLimit.deleteMany({});
     await loginAsAdmin(page);
-    await expect(page.getByRole("heading", { name: /Halo/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Selamat (pagi|siang|sore|malam)/ })).toBeVisible();
     await page.waitForLoadState("networkidle");
     await page.locator("aside").last().getByRole("button", { name: "Keluar" }).click();
     await expect(page).toHaveURL(/\/admin\/login/, { timeout: 15_000 });

@@ -77,7 +77,7 @@ export default async function ContactPage() {
           })}
         </div>
         <div className="min-w-0 lg:col-span-7">
-          <div className="rounded-3xl border bg-card p-6 shadow-xl shadow-primary/5 sm:p-8">
+          <div className="rounded-3xl border bg-card p-6 sm:p-8">
             <h2 className="text-2xl font-extrabold">Formulir Kontak</h2>
             <p className="mt-1 mb-6 text-sm text-muted-foreground">Kolom bertanda * wajib diisi.</p>
             <ContactForm units={units.map((u) => ({ id: u.id, menuName: u.menuName }))} />

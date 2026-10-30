@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Car, Fuel, Settings2, Users } from "lucide-react";
+import { Car, Fuel, Settings2, Users } from "lucide-react";
 import { CldImage } from "@/components/cld-image";
 
 export type VehicleCardData = {
@@ -20,7 +20,7 @@ export function VehicleCard({ v }: { v: VehicleCardData }) {
     <Link
       prefetch={false}
       href={`/armada/${v.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-md"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-secondary to-muted">
         {img ? (
@@ -59,8 +59,7 @@ export function VehicleCard({ v }: { v: VehicleCardData }) {
           </li>
         </ul>
         <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-          Lihat detail{" "}
-          <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <span className="underline-offset-4 group-hover:underline">Lihat detail</span>
         </span>
       </div>
     </Link>

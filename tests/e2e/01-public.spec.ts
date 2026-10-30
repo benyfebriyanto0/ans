@@ -31,7 +31,31 @@ test.describe("Halaman publik", () => {
     for (const name of ["Perdagangan", "Jasa", "Perdagangan Oli", "Rental Mobil"]) {
       await expect(page.getByRole("heading", { name, exact: true }).first()).toBeVisible();
     }
-    await expect(page.getByRole("heading", { name: /Siap bekerja sama/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Butuh part, servis mesin/ })).toBeVisible();
+  });
+
+  test("hero beranda: pemilih layanan bisa diklik & dinavigasi keyboard", async ({ page }) => {
+    await page.goto("/");
+    const tabs = page.getByRole("tablist", { name: "Pilih bidang usaha" });
+    await tabs.getByRole("tab", { name: "Jasa" }).click();
+    await expect(tabs.getByRole("tab", { name: "Jasa" })).toHaveAttribute("aria-selected", "true");
+    await expect(page.getByRole("link", { name: "Lihat Jasa" })).toBeVisible();
+    await page.keyboard.press("ArrowRight");
+    await expect(tabs.getByRole("tab", { name: "Perdagangan Oli" })).toBeFocused();
+    await expect(page.getByRole("link", { name: "Lihat Perdagangan Oli" })).toHaveAttribute(
+      "href",
+      "/bidang-usaha/perdagangan-oli",
+    );
+  });
+
+  test("detail di HP: bar aksi WhatsApp & telepon menggantikan tombol melayang", async ({ browser }) => {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await page.goto("/bidang-usaha/jasa");
+    const bar = page.locator("[data-mobile-actionbar]");
+    await expect(bar).toBeVisible();
+    await expect(bar.getByRole("link", { name: /Laporkan kerusakan/ })).toHaveAttribute("href", /wa\.me/);
+    await expect(page.locator("[data-floating-wa]")).toBeHidden();
+    await page.close();
   });
 
   test("tentang: visi, 6 misi, 5 nilai, legalitas", async ({ page }) => {
@@ -45,10 +69,10 @@ test.describe("Halaman publik", () => {
   test("detail bidang usaha: landing, tanpa KBLI, layanan, form, FAQ, WA otomatis", async ({ page }) => {
     await page.goto("/bidang-usaha/perdagangan-oli");
     await expect(page.getByText(/KBLI/)).toHaveCount(0);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Pelumas berkualitas");
-    await expect(page.getByRole("heading", { name: "Pilihan pelumas & bahan bakar" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Tiga langkah. Langsung beres." })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Ada yang ingin ditanyakan?" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Pelumas yang tepat");
+    await expect(page.getByRole("heading", { name: "Produk yang kami pasok" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Alur pemesanan" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Pertanyaan yang sering masuk" })).toBeVisible();
     await expect(page.getByLabel("Nama / perusahaan")).toBeVisible();
     const wa = page.getByRole("link", { name: /Tanya via WhatsApp/ }).first();
     const href = await wa.getAttribute("href");

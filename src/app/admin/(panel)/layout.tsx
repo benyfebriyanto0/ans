@@ -13,7 +13,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const me = await requireAdmin();
   const unread = await db.contactMessage.count({ where: { isRead: false } });
   return (
-    <div className="min-h-dvh bg-muted/40">
+    <div className="admin min-h-dvh bg-[oklch(0.975_0.01_240)]">
       <AdminNav unread={unread} user={{ name: me.name, email: me.email }} />
       <div className="lg:pl-64">
         <main className="w-full px-4 py-6 sm:px-6 lg:px-10 lg:py-8 2xl:px-12">{children}</main>

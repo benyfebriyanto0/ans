@@ -9,6 +9,7 @@ export function FloatingWhatsapp({ number, message }: { number: string; message:
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat WhatsApp"
+      data-floating-wa
       className="group fixed right-4 bottom-4 z-40 flex items-center gap-2 rounded-full bg-[#25D366] p-3.5 text-white shadow-lg shadow-black/20 transition-all hover:scale-105 hover:shadow-xl sm:right-6 sm:bottom-6"
     >
       <span

@@ -22,11 +22,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" suppressHydrationWarning>
+    <html lang="id" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link
           rel="preload"
           href="/fonts/plus-jakarta-sans-latin-wght.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/archivo-latin-standard.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

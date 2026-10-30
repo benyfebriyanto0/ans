@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Building2, CheckCircle2, FileBadge2, Handshake, MapPin, Target, Rocket } from "lucide-react";
+import { Building2, FileBadge2, Handshake, MapPin } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
+import { ArcMark } from "@/components/site/arc-mark";
 import { getSettings } from "@/lib/settings";
 
 export const revalidate = 3600;
@@ -47,7 +48,7 @@ export default async function AboutPage() {
           </div>
         </Reveal>
         <Reveal delay={120} className="lg:col-span-5">
-          <div className="rounded-3xl border bg-card p-6 shadow-lg shadow-primary/5 sm:p-8">
+          <div className="rounded-3xl border bg-card p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <span className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground">
                 <FileBadge2 className="size-5" />
@@ -68,25 +69,18 @@ export default async function AboutPage() {
 
       {/* Visi & Misi */}
       <section className="relative overflow-hidden bg-sky-soft py-20 sm:py-28">
-        <div className="bg-grid-light absolute inset-0" aria-hidden />
-        <div className="glow-accent absolute top-0 right-0 size-[28rem]" aria-hidden />
+        <ArcMark className="absolute -top-4 -right-28 w-[36rem] opacity-30" />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <Reveal>
-            <span className="grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground">
-              <Target className="size-6" />
-            </span>
-            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Visi</h2>
+            <h2 className="text-2xl font-extrabold text-primary">Visi</h2>
             <p className="mt-4 text-2xl leading-relaxed font-bold text-balance sm:text-3xl">“{s.vision}”</p>
           </Reveal>
           <Reveal delay={120}>
-            <span className="grid size-12 place-items-center rounded-xl bg-primary text-white">
-              <Rocket className="size-6" />
-            </span>
-            <h2 className="mt-6 text-xs font-bold tracking-[0.18em] text-gold-600 uppercase">Misi</h2>
+            <h2 className="text-2xl font-extrabold text-primary">Misi</h2>
             <ol aria-label="Daftar misi" className="mt-4 space-y-4">
               {s.missions.map((m, i) => (
                 <li key={i} className="flex gap-4">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white font-mono text-sm font-bold text-primary shadow-sm">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-white text-sm font-bold text-primary tabular-nums ring-1 ring-border">
                     {i + 1}
                   </span>
                   <span className="pt-1 leading-relaxed text-foreground/80">{m}</span>
@@ -100,22 +94,15 @@ export default async function AboutPage() {
       {/* Nilai */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
         <SectionHeading eyebrow="Nilai Perusahaan" title="Prinsip yang menjadi fondasi kami" />
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <ol className="mt-12 divide-y border-y">
           {s.values.map((v, i) => (
-            <Reveal
-              as="li"
-              key={v.title}
-              delay={i * 70}
-              className="rounded-2xl border bg-card p-6 text-center transition hover:-translate-y-1 hover:shadow-lg"
-            >
-              <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent/15 text-accent-foreground">
-                <CheckCircle2 className="size-6 text-gold-600" />
-              </span>
-              <h3 className="mt-4 font-bold">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
-            </Reveal>
+            <li key={v.title} className="grid gap-2 py-6 sm:grid-cols-12 sm:gap-6">
+              <span className="text-2xl font-extrabold text-gold-600 tabular-nums sm:col-span-1">{i + 1}</span>
+              <h3 className="text-lg font-bold text-navy-950 sm:col-span-3">{v.title}</h3>
+              <p className="leading-relaxed text-muted-foreground sm:col-span-8">{v.description}</p>
+            </li>
           ))}
-        </ul>
+        </ol>
       </section>
 
       {/* Komitmen */}
